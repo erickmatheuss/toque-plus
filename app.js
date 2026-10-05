@@ -2,18 +2,9 @@
 (async function(){
   const app=document.getElementById('app');
 
-  // Cria a tela de abertura imediatamente,
-  // antes de qualquer conteúdo do cliente aparecer.
-  const intro=document.createElement('div');
-  intro.className='intro';
-  intro.innerHTML=`
-    <div class="intro-inner">
-      ${logoMark()}
-      <div class="intro-word">TOQUE+</div>
-      <div class="intro-line"></div>
-    </div>
-  `;
-  document.body.appendChild(intro);
+  // Esconde o conteúdo inicialmente para que a página do cliente
+  // não apareça antes da intro da Toque+.
+  app.style.visibility='hidden';
 
   try{
     const unit=await getUnitFromLocation();
@@ -38,11 +29,19 @@
         </section>
       `;
 
-      // Mantém a intro visível por um pequeno período
-      // antes de mostrar a mensagem.
-      await new Promise(resolve=>setTimeout(resolve,700));
+      app.style.visibility='visible';
 
-      intro.remove();
+      const intro=document.createElement('div');
+      intro.className='intro';
+      intro.innerHTML=`
+        <div class="intro-inner">
+          ${logoMark()}
+          <div class="intro-word">TOQUE+</div>
+          <div class="intro-line"></div>
+        </div>
+      `;
+      document.body.appendChild(intro);
+
       return;
     }
 
@@ -134,11 +133,22 @@
       });
     });
 
-    // Pequeno tempo para a animação da marca terminar
-    // antes de revelar a página do cliente.
-    await new Promise(resolve=>setTimeout(resolve,700));
+    // Cria a intro somente depois que tudo que ela precisa
+    // já foi carregado e depois que a página do cliente está pronta.
+    const intro=document.createElement('div');
+    intro.className='intro';
+    intro.innerHTML=`
+      <div class="intro-inner">
+        ${logoMark()}
+        <div class="intro-word">TOQUE+</div>
+        <div class="intro-line"></div>
+      </div>
+    `;
+    document.body.appendChild(intro);
 
-    intro.remove();
+    // A página já está pronta por baixo da intro.
+    // Agora liberamos sua renderização.
+    app.style.visibility='visible';
 
   }catch(e){
     console.error(e);
@@ -151,9 +161,18 @@
       </section>
     `;
 
-    await new Promise(resolve=>setTimeout(resolve,700));
+    app.style.visibility='visible';
 
-    intro.remove();
+    const intro=document.createElement('div');
+    intro.className='intro';
+    intro.innerHTML=`
+      <div class="intro-inner">
+        ${logoMark()}
+        <div class="intro-word">TOQUE+</div>
+        <div class="intro-line"></div>
+      </div>
+    `;
+    document.body.appendChild(intro);
   }
 })();
 ```
