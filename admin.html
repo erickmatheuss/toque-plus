@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Toque+ · Configurador</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+  <div class="glow g1"></div>
+
+  <div id="loginGate" class="login-gate">
+
+    <div class="login-card">
+
+      <div class="login-brand">
+        <img src="logo-toque.png" alt="Toque+">
+
+        <div>
+          <strong>TOQUE+</strong>
+          <small>Painel administrativo</small>
+        </div>
+      </div>
+
+      <h1>Acesso restrito</h1>
+
+      <p>
+        Entre com sua conta administrativa do Toque+.
+      </p>
+
+      <form id="loginForm">
+
+        <label>
+          E-mail
+          <input
+            id="loginEmail"
+            type="email"
+            required
+            autocomplete="username"
+          >
+        </label>
+
+        <label>
+          Senha
+          <input
+            id="loginPassword"
+            type="password"
+            required
+            autocomplete="current-password"
+          >
+        </label>
+
+        <button class="primary" type="submit">
+          Entrar
+        </button>
+
+        <div id="loginError" class="login-error"></div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="glow g2"></div>
+
+  <main class="admin" id="adminApp" hidden>
+
+    <header>
+
+      <div class="admin-brand">
+
+        <span id="mark"></span>
+
+        <div>
+          <strong>TOQUE+</strong>
+          <small>Configurador</small>
+        </div>
+
+      </div>
+
+      <div class="header-actions">
+
+        <a
+          href="index.html?unit=A001"
+          target="_blank"
+        >
+          Abrir site
+        </a>
+
+        <button
+          type="button"
+          class="secondary mini"
+          id="logout"
+        >
+          Sair
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <section class="brand-settings">
+
+      <div>
+
+        <span class="eyebrow">
+          IDENTIDADE DO TOQUE+
+        </span>
+
+        <h2>
+          Logo do Toque+
+        </h2>
+
+        <p>
+          O logo oficial já está instalado. Se quiser trocar, envie outro PNG.
+          Ele será usado no site do cliente, na abertura NFC/QR e no configurador.
+        </p>
+
+      </div>
+
+      <div class="brand-upload-row">
+
+        <label class="brand-upload">
+
+          <input
+            id="brandLogoInput"
+            type="file"
+            accept="image/png"
+          >
+
+          <span class="upload-icon">
+            ↑
+          </span>
+
+          <strong>
+            Enviar logo PNG
+          </strong>
+
+          <small>
+            PNG com fundo transparente é recomendado
+          </small>
+
+        </label>
+
+        <div class="brand-current">
+
+          <span id="brandStatus">
+            Logo oficial instalado.
+          </span>
+
+          <button
+            type="button"
+            class="secondary"
+            id="removeBrandLogo"
+          >
+            Voltar ao logo oficial
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="layout">
+
+      <aside>
+
+        <div class="section-title">
+          Unidades
+        </div>
+
+        <div id="units"></div>
+
+      </aside>
+
+
+      <section class="editor">
+
+        <div class="editor-head">
+
+          <div>
+
+            <span class="eyebrow">
+              NOVA CONFIGURAÇÃO
+            </span>
+
+            <h1 id="editorTitle">
+              Selecione uma unidade
+            </h1>
+
+          </div>
+
+          <span id="status" class="status">
+            Disponível
+          </span>
+
+        </div>
+
+
+        <form id="form" hidden>
+
+          <label>
+            Nome do estabelecimento
+            <input
+              id="name"
+              required
+              maxlength="60"
+            >
+          </label>
+
+
+          <label>
+            Descrição
+            <textarea
+              id="description"
+              maxlength="120"
+            ></textarea>
+          </label>
+
+
+          <label>
+            Identificador público
+
+            <input
+              id="slug"
+              maxlength="48"
+              placeholder="ex.: cafe-central"
+            >
+
+            <span class="hint">
+              Será usado na URL pública. Ex.: /q/cafe-central
+            </span>
+
+          </label>
+
+
+          <label>
+            Logo do estabelecimento
+
+            <input
+              id="logo"
+              type="file"
+              accept="image/*"
+            >
+
+            <span class="hint">
+              Escolha uma imagem do computador.
+              Ela será otimizada automaticamente para o protótipo.
+            </span>
+
+          </label>
+
+
+          <div
+            class="logo-preview"
+            id="logoPreview"
+          ></div>
+
+
+          <label>
+            Imagem de fundo
+
+            <input
+              id="background"
+              type="file"
+              accept="image/*"
+            >
+
+            <span class="hint">
+              Escolha uma foto do estabelecimento ou do ambiente.
+              Ela será desfocada e escurecida automaticamente na página.
+            </span>
+
+          </label>
+
+
+          <div
+            class="background-preview"
+            id="backgroundPreview"
+          ></div>
+
+
+          <label class="blur-control">
+
+            Desfoque do fundo
+
+            <div class="range-row">
+
+              <input
+                id="backgroundBlur"
+                type="range"
+                min="0"
+                max="18"
+                step="1"
+                value="7"
+              >
+
+              <output id="backgroundBlurValue">
+                7px
+              </output>
+
+            </div>
+
+            <span class="hint">
+              Ajuste o quanto a foto ficará desfocada na página.
+              0px = nítida · 18px = mais desfocada.
+            </span>
+
+          </label>
+
+
+          <div class="grid">
+
+            <label>
+              WhatsApp
+              <input
+                id="whatsapp"
+                placeholder="(51) 99999-9999 ou link"
+              >
+            </label>
+
+            <label>
+              Instagram
+              <input
+                id="instagram"
+                placeholder="@usuario ou link"
+              >
+            </label>
+
+            <label>
+              Google
+              <input
+                id="google"
+                placeholder="Link de avaliação"
+              >
+            </label>
+
+            <label>
+              Google Maps
+              <input
+                id="maps"
+                placeholder="Link do Maps"
+              >
+            </label>
+
+            <label>
+              Site
+              <input
+                id="site"
+                placeholder="www.exemplo.com.br"
+              >
+            </label>
+
+          </div>
+
+
+          <div class="url-box">
+
+            <span>
+              URL pública da unidade
+            </span>
+
+            <code id="unitUrl"></code>
+
+            <button
+              type="button"
+              class="secondary mini"
+              id="copyUrl"
+            >
+              Copiar URL
+            </button>
+
+          </div>
+
+
+          <div
+            class="stats-box"
+            id="statsBox"
+          ></div>
+
+
+          <!-- NOVO: BOTÃO PARA ATUALIZAR OS ACESSOS -->
+          <div class="stats-actions">
+
+            <button
+              type="button"
+              class="secondary mini"
+              id="refreshStats"
+            >
+              ↻ Atualizar acessos
+            </button>
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              type="button"
+              class="secondary"
+              id="release"
+            >
+              Liberar unidade
+            </button>
+
+            <button
+              class="primary"
+              type="submit"
+            >
+              Salvar e visualizar
+            </button>
+
+          </div>
+
+        </form>
+
+
+        <div
+          id="empty"
+          class="empty"
+        >
+
+          <span>+</span>
+
+          <p>
+            Selecione uma unidade para começar.
+          </p>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="data.js"></script>
+  <script src="admin.js"></script>
+
+</body>
+
+</html>
