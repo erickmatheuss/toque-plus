@@ -1,20 +1,13 @@
 ```js
 (async function(){
   const app=document.getElementById('app');
-
-  // Esconde o conteúdo inicialmente para que a página do cliente
-  // não apareça antes da intro da Toque+.
-  app.style.visibility='hidden';
-
   try{
     const unit=await getUnitFromLocation();
-
     const bg=document.getElementById('background');
 
     if(unit&&unit.backgroundData){
       bg.style.backgroundImage=`url("${unit.backgroundData}")`;
       bg.style.opacity='1';
-
       document.documentElement.style.setProperty(
         '--bg-blur',
         `${Number.isFinite(Number(unit.backgroundBlur))?Number(unit.backgroundBlur):7}px`
@@ -28,20 +21,6 @@
           Esta unidade ainda não foi configurada.
         </section>
       `;
-
-      app.style.visibility='visible';
-
-      const intro=document.createElement('div');
-      intro.className='intro';
-      intro.innerHTML=`
-        <div class="intro-inner">
-          ${logoMark()}
-          <div class="intro-word">TOQUE+</div>
-          <div class="intro-line"></div>
-        </div>
-      `;
-      document.body.appendChild(intro);
-
       return;
     }
 
@@ -133,8 +112,6 @@
       });
     });
 
-    // Cria a intro somente depois que tudo que ela precisa
-    // já foi carregado e depois que a página do cliente está pronta.
     const intro=document.createElement('div');
     intro.className='intro';
     intro.innerHTML=`
@@ -145,10 +122,6 @@
       </div>
     `;
     document.body.appendChild(intro);
-
-    // A página já está pronta por baixo da intro.
-    // Agora liberamos sua renderização.
-    app.style.visibility='visible';
 
   }catch(e){
     console.error(e);
@@ -160,19 +133,6 @@
         <small>${esc(e.message||'Erro de conexão')}</small>
       </section>
     `;
-
-    app.style.visibility='visible';
-
-    const intro=document.createElement('div');
-    intro.className='intro';
-    intro.innerHTML=`
-      <div class="intro-inner">
-        ${logoMark()}
-        <div class="intro-word">TOQUE+</div>
-        <div class="intro-line"></div>
-      </div>
-    `;
-    document.body.appendChild(intro);
   }
 })();
 ```
