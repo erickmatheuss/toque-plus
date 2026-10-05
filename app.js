@@ -1,44 +1,50 @@
 ```js
 (async function(){
-  const app=document.getElementById('app');
-  try{
-    const unit=await getUnitFromLocation();
-    const bg=document.getElementById('background');
+  const app = document.getElementById('app');
 
-    if(unit&&unit.backgroundData){
-      bg.style.backgroundImage=`url("${unit.backgroundData}")`;
-      bg.style.opacity='1';
+  try{
+    const unit = await getUnitFromLocation();
+
+    const bg = document.getElementById('background');
+
+    if(unit && unit.backgroundData){
+      bg.style.backgroundImage = 'url("' + unit.backgroundData + '")';
+      bg.style.opacity = '1';
+
       document.documentElement.style.setProperty(
         '--bg-blur',
-        `${Number.isFinite(Number(unit.backgroundBlur))?Number(unit.backgroundBlur):7}px`
+        (Number.isFinite(Number(unit.backgroundBlur))
+          ? Number(unit.backgroundBlur)
+          : 7) + 'px'
       );
     }
 
-    if(!unit||unit.status!=='configured'){
-      app.innerHTML=`
+    if(!unit || unit.status !== 'configured'){
+      app.innerHTML = `
         <section class="empty">
           <strong>Toque+</strong>
           Esta unidade ainda não foi configurada.
         </section>
       `;
+
       return;
     }
 
-    const links=[
+    const links = [
       ['whatsapp','WhatsApp','Fale conosco',unit.whatsapp],
       ['instagram','Instagram','Siga nosso perfil',unit.instagram],
       ['google','Google','Avalie nossa empresa',unit.google],
       ['maps','Como chegar','Abra no Maps',unit.maps],
       ['site','Nosso site','Conheça mais',unit.site]
-    ].filter(x=>x[3]);
+    ].filter(x => x[3]);
 
-    app.innerHTML=`
+    app.innerHTML = `
       <section class="profile">
         <div class="logo-wrap">
           ${
             unit.logoData
-              ? `<img src="${unit.logoData}" alt="Logo de ${esc(unit.name)}">`
-              : `<span class="initials">${esc((unit.name||'').slice(0,2).toUpperCase())}</span>`
+              ? '<img src="' + unit.logoData + '" alt="Logo de ' + esc(unit.name) + '">'
+              : '<span class="initials">' + esc((unit.name || '').slice(0,2).toUpperCase()) + '</span>'
           }
         </div>
 
@@ -46,30 +52,32 @@
 
         ${
           unit.description
-            ? `<p class="description">${esc(unit.description)}</p>`
+            ? '<p class="description">' + esc(unit.description) + '</p>'
             : ''
         }
       </section>
 
       <section class="links">
-        ${links.map(([type,title,sub,href])=>`
-          <a
-            class="link link-${type}"
-            href="${esc(href)}"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-track="${type}"
-          >
-            <span class="icon">${icon(type)}</span>
+        ${
+          links.map(([type,title,sub,href]) => `
+            <a
+              class="link link-${type}"
+              href="${esc(href)}"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="${type}"
+            >
+              <span class="icon">${icon(type)}</span>
 
-            <span class="copy">
-              <span class="title">${title}</span>
-              <span class="subtitle">${sub}</span>
-            </span>
+              <span class="copy">
+                <span class="title">${title}</span>
+                <span class="subtitle">${sub}</span>
+              </span>
 
-            <span class="arrow">›</span>
-          </a>
-        `).join('')}
+              <span class="arrow">›</span>
+            </a>
+          `).join('')
+        }
       </section>
 
       <footer class="footer">
@@ -93,9 +101,9 @@
       );
     }
 
-    document.querySelectorAll('.link').forEach(el=>{
-      el.addEventListener('click',async()=>{
-        const type=el.dataset.track;
+    document.querySelectorAll('.link').forEach(el => {
+      el.addEventListener('click', async () => {
+        const type = el.dataset.track;
 
         try{
           await trackAction(unit.id,type);
@@ -112,25 +120,28 @@
       });
     });
 
-    const intro=document.createElement('div');
-    intro.className='intro';
-    intro.innerHTML=`
+    const intro = document.createElement('div');
+
+    intro.className = 'intro';
+
+    intro.innerHTML = `
       <div class="intro-inner">
         ${logoMark()}
         <div class="intro-word">TOQUE+</div>
         <div class="intro-line"></div>
       </div>
     `;
+
     document.body.appendChild(intro);
 
   }catch(e){
     console.error(e);
 
-    app.innerHTML=`
+    app.innerHTML = `
       <section class="empty">
         <strong>Toque+</strong>
         Não foi possível carregar esta unidade agora.
-        <small>${esc(e.message||'Erro de conexão')}</small>
+        <small>${esc(e.message || 'Erro de conexão')}</small>
       </section>
     `;
   }
