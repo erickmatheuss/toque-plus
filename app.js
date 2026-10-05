@@ -1,237 +1,241 @@
-```js
 (async function () {
 
-  const app = document.getElementById('app');
+const app = document.getElementById('app');
 
-  try {
+try {
 
-    const unit = await getUnitFromLocation();
+```
+const unit = await getUnitFromLocation();
 
-    const bg = document.getElementById('background');
+const bg = document.getElementById('background');
 
-    if (unit && unit.backgroundData) {
+if (unit && unit.backgroundData) {
 
-      bg.style.backgroundImage =
-        'url("' + unit.backgroundData + '")';
+  bg.style.backgroundImage =
+    'url("' + unit.backgroundData + '")';
 
-      bg.style.opacity = '1';
+  bg.style.opacity = '1';
 
-      const blur =
-        Number.isFinite(Number(unit.backgroundBlur))
-          ? Number(unit.backgroundBlur)
-          : 7;
+  const blur =
+    Number.isFinite(Number(unit.backgroundBlur))
+      ? Number(unit.backgroundBlur)
+      : 7;
 
-      document.documentElement.style.setProperty(
-        '--bg-blur',
-        blur + 'px'
-      );
-    }
+  document.documentElement.style.setProperty(
+    '--bg-blur',
+    blur + 'px'
+  );
+}
 
-    if (!unit || unit.status !== 'configured') {
+if (!unit || unit.status !== 'configured') {
 
-      app.innerHTML =
-        '<section class="empty">' +
-          '<strong>Toque+</strong>' +
-          'Esta unidade ainda não foi configurada.' +
-        '</section>';
+  app.innerHTML =
+    '<section class="empty">' +
+      '<strong>Toque+</strong>' +
+      'Esta unidade ainda não foi configurada.' +
+    '</section>';
 
-      return;
-    }
+  return;
+}
 
-    const links = [
-      ['whatsapp', 'WhatsApp', 'Fale conosco', unit.whatsapp],
-      ['instagram', 'Instagram', 'Siga nosso perfil', unit.instagram],
-      ['google', 'Google', 'Avalie nossa empresa', unit.google],
-      ['maps', 'Como chegar', 'Abra no Maps', unit.maps],
-      ['site', 'Nosso site', 'Conheça mais', unit.site]
-    ].filter(function (item) {
-      return item[3];
-    });
+const links = [
+  ['whatsapp', 'WhatsApp', 'Fale conosco', unit.whatsapp],
+  ['instagram', 'Instagram', 'Siga nosso perfil', unit.instagram],
+  ['google', 'Google', 'Avalie nossa empresa', unit.google],
+  ['maps', 'Como chegar', 'Abra no Maps', unit.maps],
+  ['site', 'Nosso site', 'Conheça mais', unit.site]
+].filter(function (item) {
+  return item[3];
+});
 
-    let html = '';
+let html = '';
 
-    html += '<section class="profile">';
+html += '<section class="profile">';
 
-    html += '<div class="logo-wrap">';
+html += '<div class="logo-wrap">';
 
-    if (unit.logoData) {
+if (unit.logoData) {
 
-      html +=
-        '<img src="' +
-        unit.logoData +
-        '" alt="Logo de ' +
-        esc(unit.name) +
-        '">';
+  html +=
+    '<img src="' +
+    unit.logoData +
+    '" alt="Logo de ' +
+    esc(unit.name) +
+    '">';
 
-    } else {
+} else {
 
-      html +=
-        '<span class="initials">' +
-        esc((unit.name || '').slice(0, 2).toUpperCase()) +
-        '</span>';
+  html +=
+    '<span class="initials">' +
+    esc((unit.name || '').slice(0, 2).toUpperCase()) +
+    '</span>';
 
-    }
+}
 
-    html += '</div>';
+html += '</div>';
 
-    html +=
-      '<h1 class="name">' +
-      esc(unit.name) +
-      '</h1>';
+html +=
+  '<h1 class="name">' +
+  esc(unit.name) +
+  '</h1>';
 
-    if (unit.description) {
+if (unit.description) {
 
-      html +=
-        '<p class="description">' +
-        esc(unit.description) +
-        '</p>';
+  html +=
+    '<p class="description">' +
+    esc(unit.description) +
+    '</p>';
 
-    }
+}
 
-    html += '</section>';
+html += '</section>';
 
-    html += '<section class="links">';
+html += '<section class="links">';
 
-    links.forEach(function (item) {
+links.forEach(function (item) {
 
-      const type = item[0];
-      const title = item[1];
-      const sub = item[2];
-      const href = item[3];
+  const type = item[0];
+  const title = item[1];
+  const sub = item[2];
+  const href = item[3];
 
-      html +=
-        '<a class="link link-' +
-        type +
-        '" href="' +
-        esc(href) +
-        '" target="_blank" rel="noopener noreferrer" data-track="' +
-        type +
-        '">' +
+  html +=
+    '<a class="link link-' +
+    type +
+    '" href="' +
+    esc(href) +
+    '" target="_blank" rel="noopener noreferrer" data-track="' +
+    type +
+    '">' +
 
-        '<span class="icon">' +
-        icon(type) +
-        '</span>' +
+    '<span class="icon">' +
+    icon(type) +
+    '</span>' +
 
-        '<span class="copy">' +
-          '<span class="title">' +
-          title +
-          '</span>' +
+    '<span class="copy">' +
 
-          '<span class="subtitle">' +
-          sub +
-          '</span>' +
-        '</span>' +
+      '<span class="title">' +
+      title +
+      '</span>' +
 
-        '<span class="arrow">›</span>' +
+      '<span class="subtitle">' +
+      sub +
+      '</span>' +
 
-        '</a>';
+    '</span>' +
 
-    });
+    '<span class="arrow">›</span>' +
 
-    html += '</section>';
+    '</a>';
 
-    html +=
-      '<footer class="footer">' +
+});
 
-        '<div class="brand">' +
-          logoMark() +
-          '<span>TOQUE+</span>' +
-        '</div>' +
+html += '</section>';
 
-        '<div class="tagline">' +
-          'Conectando negócios a pessoas.' +
-        '</div>' +
+html +=
+  '<footer class="footer">' +
 
-      '</footer>';
+    '<div class="brand">' +
+      logoMark() +
+      '<span>TOQUE+</span>' +
+    '</div>' +
 
-    app.innerHTML = html;
+    '<div class="tagline">' +
+      'Conectando negócios a pessoas.' +
+    '</div>' +
+
+  '</footer>';
+
+app.innerHTML = html;
+
+try {
+
+  await trackAction(
+    unit.id,
+    'visualizacao'
+  );
+
+} catch (e) {
+
+  console.warn(
+    'Não foi possível registrar a visualização:',
+    e
+  );
+
+}
+
+document.querySelectorAll('.link').forEach(function (el) {
+
+  el.addEventListener('click', async function () {
+
+    const type = el.dataset.track;
 
     try {
 
       await trackAction(
         unit.id,
-        'visualizacao'
+        type
       );
 
     } catch (e) {
 
       console.warn(
-        'Não foi possível registrar a visualização:',
+        'Não foi possível registrar o clique:',
         e
       );
 
     }
 
-    document.querySelectorAll('.link').forEach(function (el) {
+    el.classList.remove('burst');
 
-      el.addEventListener('click', async function () {
+    void el.offsetWidth;
 
-        const type = el.dataset.track;
+    el.classList.add('burst');
 
-        try {
+  });
 
-          await trackAction(
-            unit.id,
-            type
-          );
+});
 
-        } catch (e) {
+const intro =
+  document.createElement('div');
 
-          console.warn(
-            'Não foi possível registrar o clique:',
-            e
-          );
+intro.className = 'intro';
 
-        }
+intro.innerHTML =
+  '<div class="intro-inner">' +
 
-        el.classList.remove('burst');
+    logoMark() +
 
-        void el.offsetWidth;
+    '<div class="intro-word">' +
+    'TOQUE+' +
+    '</div>' +
 
-        el.classList.add('burst');
+    '<div class="intro-line"></div>' +
 
-      });
+  '</div>';
 
-    });
+document.body.appendChild(intro);
+```
 
-    const intro =
-      document.createElement('div');
+} catch (e) {
 
-    intro.className = 'intro';
+```
+console.error(e);
 
-    intro.innerHTML =
-      '<div class="intro-inner">' +
+app.innerHTML =
+  '<section class="empty">' +
 
-        logoMark() +
+    '<strong>Toque+</strong>' +
 
-        '<div class="intro-word">' +
-        'TOQUE+' +
-        '</div>' +
+    'Não foi possível carregar esta unidade agora.' +
 
-        '<div class="intro-line"></div>' +
+    '<small>' +
+    esc(e.message || 'Erro de conexão') +
+    '</small>' +
 
-      '</div>';
+  '</section>';
+```
 
-    document.body.appendChild(intro);
-
-  } catch (e) {
-
-    console.error(e);
-
-    app.innerHTML =
-      '<section class="empty">' +
-
-        '<strong>Toque+</strong>' +
-
-        'Não foi possível carregar esta unidade agora.' +
-
-        '<small>' +
-        esc(e.message || 'Erro de conexão') +
-        '</small>' +
-
-      '</section>';
-
-  }
+}
 
 })();
-```
