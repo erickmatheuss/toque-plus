@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/q/:unit",
+      "destination": "/index.html?unit=:unit"
+    }
+  ]
+}
