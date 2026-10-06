@@ -3,21 +3,40 @@
   const app = document.getElementById('app');
   const intro = document.getElementById('intro');
 
-  function startLinkAnimation(){
+  function startPageAnimation(){
+
+    app.classList.add('page-ready');
+
     const linksContainer = document.querySelector('.links');
 
-    if(!linksContainer) return;
+    if(linksContainer){
+      linksContainer.classList.add('animate-in');
+    }
 
-    linksContainer.classList.add('animate-in');
   }
+
+  /*
+    A página fica montada por trás da intro,
+    mas permanece preparada para entrar somente
+    quando a intro terminar.
+  */
 
   if(intro){
+
     intro.addEventListener('animationend', function(event){
+
       if(event.animationName === 'introOut'){
-        startLinkAnimation();
+        startPageAnimation();
       }
+
     });
+
+  }else{
+
+    startPageAnimation();
+
   }
+
 
   try{
 
@@ -38,6 +57,7 @@
 
     }
 
+
     if(!unit || unit.status !== 'configured'){
 
       app.innerHTML = `
@@ -50,6 +70,7 @@
       return;
     }
 
+
     const links = [
       ['whatsapp','WhatsApp','Fale conosco',unit.whatsapp],
       ['instagram','Instagram','Siga nosso perfil',unit.instagram],
@@ -58,7 +79,9 @@
       ['site','Nosso site','Conheça mais',unit.site]
     ].filter(x => x[3]);
 
+
     app.innerHTML = `
+
       <section class="profile">
 
         <div class="logo-wrap">
@@ -66,7 +89,10 @@
           ${
             unit.logoData
             ?
-            `<img src="${unit.logoData}" alt="Logo de ${esc(unit.name)}">`
+            `<img
+              src="${unit.logoData}"
+              alt="Logo de ${esc(unit.name)}"
+            >`
             :
             `<span class="initials">
               ${esc((unit.name || '').slice(0,2).toUpperCase())}
@@ -75,9 +101,11 @@
 
         </div>
 
+
         <h1 class="name">
           ${esc(unit.name)}
         </h1>
+
 
         ${
           unit.description
@@ -90,6 +118,7 @@
         }
 
       </section>
+
 
       <section class="links">
 
@@ -109,6 +138,7 @@
                 ${icon(type)}
               </span>
 
+
               <span class="copy">
 
                 <span class="title">
@@ -121,6 +151,7 @@
 
               </span>
 
+
               <span class="arrow">
                 ›
               </span>
@@ -132,6 +163,7 @@
 
       </section>
 
+
       <footer class="footer">
 
         <div class="brand">
@@ -139,12 +171,19 @@
           <span>TOQUE+</span>
         </div>
 
+
         <div class="tagline">
           Conectando negócios a pessoas.
         </div>
 
       </footer>
+
     `;
+
+
+    /*
+      Registra visualização
+    */
 
     try{
 
@@ -161,6 +200,11 @@
       );
 
     }
+
+
+    /*
+      Rastreamento dos cliques
+    */
 
     document
       .querySelectorAll('.link')
@@ -186,6 +230,7 @@
 
           }
 
+
           el.classList.remove('burst');
 
           void el.offsetWidth;
@@ -196,11 +241,13 @@
 
       });
 
+
   }catch(e){
 
     console.error(e);
 
     app.innerHTML = `
+
       <section class="empty">
 
         <strong>
@@ -214,6 +261,7 @@
         </small>
 
       </section>
+
     `;
 
   }
