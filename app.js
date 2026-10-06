@@ -224,7 +224,21 @@
     /*
       Rastreamento dos cliques
     */
+    const googleLink = document.querySelector('.link-google');
 
+if(googleLink){
+
+  setTimeout(() => {
+
+    googleLink
+      .querySelectorAll('.google-stars span')
+      .forEach(star => {
+        star.style.animationPlayState = 'running';
+      });
+
+  }, 550);
+
+}
     document
       .querySelectorAll('.link')
       .forEach(el => {
