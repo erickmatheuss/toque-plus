@@ -1,4 +1,3 @@
-```js
 (async function(){
 
   const app = document.getElementById('app');
@@ -142,44 +141,13 @@
 
               <span class="copy">
 
-                ${
-                  type === 'google'
-                  ?
-                  `
-                    <span class="title">
-                      ${title}
-                    </span>
+                <span class="title">
+                  ${title}
+                </span>
 
-                    <span class="review-line">
-
-                      <span class="subtitle">
-                        ${sub}
-                      </span>
-
-                      <span
-                        class="rating-stars"
-                        aria-hidden="true"
-                      >
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                      </span>
-
-                    </span>
-                  `
-                  :
-                  `
-                    <span class="title">
-                      ${title}
-                    </span>
-
-                    <span class="subtitle">
-                      ${sub}
-                    </span>
-                  `
-                }
+                <span class="subtitle">
+                  ${sub}
+                </span>
 
               </span>
 
@@ -299,4 +267,3 @@
   }
 
 })();
-```
