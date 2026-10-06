@@ -146,20 +146,27 @@
             </span>
 
             ${
-                type === 'google'
-                  ?
-    `
-            <span class="subtitle">
-            ${sub} ★★★★★
-            </span>
-    `
-    :
-    `
-      <span class="subtitle">
-        ${sub}
+  type === 'google'
+  ?
+  `
+    <span class="subtitle google-subtitle">
+      ${sub}
+      <span class="google-stars">
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
       </span>
-    `
-  }
+    </span>
+  `
+  :
+  `
+    <span class="subtitle">
+      ${sub}
+    </span>
+  `
+}
 
 </span>
 
