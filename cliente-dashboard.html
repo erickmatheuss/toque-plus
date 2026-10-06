@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Toque+ | Painel do cliente</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      padding:24px;
+      background:#0A0B10;
+      color:#fff;
+      font-family:Arial,sans-serif;
+    }
+
+    .container{
+      width:100%;
+      max-width:900px;
+      margin:0 auto;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:30px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand img{
+      width:42px;
+      height:42px;
+      object-fit:contain;
+    }
+
+    .brand strong{
+      font-size:20px;
+    }
+
+    .logout{
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:10px;
+      padding:10px 15px;
+      background:rgba(255,255,255,.05);
+      color:#fff;
+      cursor:pointer;
+    }
+
+    .card{
+      padding:28px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;
+      background:rgba(18,20,31,.55);
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+      backdrop-filter:blur(20px);
+    }
+
+    .eyebrow{
+      margin:0 0 8px;
+      color:#00E5FF;
+      font-size:13px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:30px;
+    }
+
+    .description{
+      margin:0;
+      color:rgba(255,255,255,.65);
+    }
+
+    .info{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:15px;
+      margin-top:28px;
+    }
+
+    .info-box{
+      padding:18px;
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:16px;
+      background:rgba(255,255,255,.035);
+    }
+
+    .info-label{
+      display:block;
+      margin-bottom:7px;
+      color:rgba(255,255,255,.5);
+      font-size:13px;
+    }
+
+    .info-value{
+      font-size:18px;
+      font-weight:700;
+    }
+
+    #status{
+      margin-top:20px;
+      color:rgba(255,255,255,.65);
+    }
+
+    @media(max-width:600px){
+      body{
+        padding:16px;
+      }
+
+      .topbar{
+        align-items:flex-start;
+      }
+
+      .info{
+        grid-template-columns:1fr;
+      }
+
+      h1{
+        font-size:25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header class="topbar">
+
+      <div class="brand">
+        <img src="/logo-toque.png" alt="Toque+">
+        <strong>Toque+</strong>
+      </div>
+
+      <button class="logout" id="logout">
+        Sair
+      </button>
+
+    </header>
+
+    <main class="card">
+
+      <p class="eyebrow">Painel do cliente</p>
+
+      <h1 id="nomeCliente">Carregando...</h1>
+
+      <p class="description" id="descricao">
+        Buscando os dados da sua conta.
+      </p>
+
+      <div class="info">
+
+        <div class="info-box">
+          <span class="info-label">Unidade</span>
+          <span class="info-value" id="unidade">...</span>
+        </div>
+
+        <div class="info-box">
+          <span class="info-label">Status</span>
+          <span class="info-value" id="statusUnidade">...</span>
+        </div>
+
+      </div>
+
+      <div id="status"></div>
+
+    </main>
+
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://snihyrudiyuslimhlkvq.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_sebHe5m45BFJGvTnp3N51A_0wveqQLr';
+
+    const sb = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const nomeCliente = document.getElementById('nomeCliente');
+    const descricao = document.getElementById('descricao');
+    const unidade = document.getElementById('unidade');
+    const statusUnidade = document.getElementById('statusUnidade');
+    const status = document.getElementById('status');
+    const logout = document.getElementById('logout');
+
+
+    async function carregarPainel(){
+
+      status.textContent = 'Verificando acesso...';
+
+      const {
+        data: { user },
+        error: authError
+      } = await sb.auth.getUser();
+
+      if(authError || !user){
+
+        window.location.href = '/cliente.html';
+        return;
+      }
+
+      console.log('Usuário logado:', user.id);
+
+
+      const { data: cliente, error: clienteError } = await sb
+        .from('clientes')
+        .select(`
+          id,
+          nome,
+          descricao,
+          usuario_id,
+          unidades (
+            codigo,
+            status
+          )
+        `)
+        .eq('usuario_id', user.id)
+        .maybeSingle();
+
+
+      if(clienteError){
+
+        console.error(clienteError);
+
+        status.textContent =
+          'Não foi possível carregar os dados do cliente.';
+
+        return;
+      }
+
+
+      if(!cliente){
+
+        status.textContent =
+          'Este usuário ainda não está vinculado a um cliente.';
+
+        return;
+      }
+
+
+      console.log('Cliente encontrado:', cliente);
+
+
+      nomeCliente.textContent =
+        cliente.nome || 'Cliente Toque+';
+
+      descricao.textContent =
+        cliente.descricao || 'Sua área exclusiva Toque+.';
+
+
+      const unidadeCliente =
+        Array.isArray(cliente.unidades)
+          ? cliente.unidades[0]
+          : cliente.unidades;
+
+
+      if(unidadeCliente){
+
+        unidade.textContent =
+          unidadeCliente.codigo || '—';
+
+        statusUnidade.textContent =
+          unidadeCliente.status || '—';
+
+      }else{
+
+        unidade.textContent = 'Nenhuma';
+        statusUnidade.textContent = '—';
+
+      }
+
+
+      status.textContent =
+        'Conta identificada com sucesso.';
+
+    }
+
+
+    logout.addEventListener('click', async () => {
+
+      await sb.auth.signOut();
+
+      window.location.href = '/cliente.html';
+
+    });
+
+
+    carregarPainel();
+  </script>
+
+</body>
+</html>
