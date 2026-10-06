@@ -13,7 +13,8 @@ unitUrl=document.getElementById('unitUrl'),
 slugInput=document.getElementById('slug'),
 copyUrl=document.getElementById('copyUrl'),
 statsBox=document.getElementById('statsBox'),
-refreshStats=document.getElementById('refreshStats');
+refreshStats=document.getElementById('refreshStats'),
+createUnit=document.getElementById('createUnit');
 
 const markEl=document.getElementById('mark'),
 brandLogoInput=document.getElementById('brandLogoInput'),
@@ -28,33 +29,48 @@ loginPassword=document.getElementById('loginPassword'),
 loginError=document.getElementById('loginError'),
 logout=document.getElementById('logout');
 
-let selected=null,
-currentLogo='',
-currentBackground='',
-currentBackgroundBlur=7;
+let selected=null;
+let currentLogo='';
+let currentBackground='';
+let currentBackgroundBlur=7;
 
+
+/* =========================================================
+   IDENTIDADE DO TOQUE+
+========================================================= */
 
 function refreshBrandUI(){
+
   markEl.innerHTML=logoMark();
 
   brandStatus.textContent=
     getBrandLogo()
       ? 'Logo personalizado carregado.'
       : 'Logo oficial instalado.';
+
 }
 
 
+/* =========================================================
+   LOGIN
+========================================================= */
+
 function showAdmin(){
+
   loginGate.hidden=true;
   adminApp.hidden=false;
+
   refreshBrandUI();
   renderUnits();
+
 }
 
 
 function showLogin(){
+
   adminApp.hidden=true;
   loginGate.hidden=false;
+
 }
 
 
@@ -71,6 +87,7 @@ async function boot(){
   }else{
     showLogin();
   }
+
 }
 
 
@@ -88,8 +105,10 @@ loginForm.addEventListener('submit',async e=>{
   });
 
   if(error){
+
     loginError.textContent=error.message;
     return;
+
   }
 
   loginError.textContent='';
@@ -119,6 +138,10 @@ sb.auth.onAuthStateChange((_event,session)=>{
 });
 
 
+/* =========================================================
+   LOGO DA MARCA
+========================================================= */
+
 brandLogoInput.addEventListener('change',()=>{
 
   const file=brandLogoInput.files[0];
@@ -132,6 +155,7 @@ brandLogoInput.addEventListener('change',()=>{
     brandLogoInput.value='';
 
     return;
+
   }
 
   if(file.size>2*1024*1024){
@@ -141,6 +165,7 @@ brandLogoInput.addEventListener('change',()=>{
     brandLogoInput.value='';
 
     return;
+
   }
 
   const reader=new FileReader();
@@ -179,10 +204,20 @@ removeBrandLogo.addEventListener('click',()=>{
 });
 
 
+/* =========================================================
+   URL PÚBLICA
+========================================================= */
+
 function publicUrl(u){
+
   return getPublicUrl(u);
+
 }
 
+
+/* =========================================================
+   LISTA DE UNIDADES
+========================================================= */
 
 async function renderUnits(){
 
@@ -193,15 +228,24 @@ async function renderUnits(){
 
     const units=await getUnits();
 
+    const ordered=Object.values(units).sort((a,b)=>{
+
+      const na=parseInt(String(a.id).replace(/\D/g,''),10)||0;
+      const nb=parseInt(String(b.id).replace(/\D/g,''),10)||0;
+
+      return na-nb;
+
+    });
+
     unitsEl.innerHTML=
-      Object.values(units).map(u=>`
+      ordered.map(u=>`
 
         <button
           class="unit ${selected===u.id?'active':''}"
-          data-id="${u.id}"
+          data-id="${esc(u.id)}"
         >
 
-          <strong>${u.id}</strong>
+          <strong>${esc(u.id)}</strong>
 
           <small>
             ${
@@ -226,7 +270,9 @@ async function renderUnits(){
     document
       .querySelectorAll('.unit')
       .forEach(b=>{
+
         b.onclick=()=>selectUnit(b.dataset.id);
+
       });
 
   }catch(e){
@@ -241,24 +287,132 @@ async function renderUnits(){
 }
 
 
-function updateUrl(u){
+/* =========================================================
+   CRIAR NOVA UNIDADE
+========================================================= */
 
-  unitUrl.textContent=publicUrl(u);
+function nextUnitCode(units){
 
-  if(copyUrl){
-    copyUrl.dataset.url=publicUrl(u);
+  let highest=0;
+
+  Object.values(units||{}).forEach(u=>{
+
+    const match=String(u.id||'').toUpperCase().match(/^A(\d+)$/);
+
+    if(match){
+
+      const number=parseInt(match[1],10);
+
+      if(number>highest){
+        highest=number;
+      }
+
+    }
+
+  });
+
+  return `A${String(highest+1).padStart(3,'0')}`;
+
+}
+
+
+async function createNextUnit(){
+
+  if(createUnit){
+    createUnit.disabled=true;
+    createUnit.querySelector('strong').textContent='Criando unidade...';
+  }
+
+  try{
+
+    const units=await getUnits();
+
+    const code=nextUnitCode(units);
+
+    const exists=Object.values(units).some(
+      u=>String(u.id).toUpperCase()===code
+    );
+
+    if(exists){
+      throw new Error(`A unidade ${code} já existe.`);
+    }
+
+    const {
+      error
+    }=await sb
+      .from('unidades')
+      .insert({
+        codigo:code,
+        cliente_id:null,
+        status:'LIVRE',
+        apelido:null,
+        atualizado_em:new Date().toISOString()
+      });
+
+    if(error)throw error;
+
+    await renderUnits();
+
+    await selectUnit(code);
+
+  }catch(e){
+
+    alert(
+      `Não foi possível criar a unidade: ${e.message}`
+    );
+
+  }finally{
+
+    if(createUnit){
+
+      createUnit.disabled=false;
+
+      createUnit.querySelector('strong').textContent=
+        'Criar nova unidade';
+
+    }
+
   }
 
 }
 
 
+createUnit?.addEventListener(
+  'click',
+  createNextUnit
+);
+
+
+/* =========================================================
+   URL DA UNIDADE
+========================================================= */
+
+function updateUrl(u){
+
+  unitUrl.textContent=publicUrl(u);
+
+  if(copyUrl){
+
+    copyUrl.dataset.url=publicUrl(u);
+
+  }
+
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
+
 async function updateStats(u){
 
   statsBox.innerHTML=`
+
     <div>
       <strong>…</strong>
       <small>Carregando</small>
     </div>
+
   `;
 
   try{
@@ -297,10 +451,12 @@ async function updateStats(u){
   }catch(e){
 
     statsBox.innerHTML=`
+
       <div>
         <strong>—</strong>
         <small>Erro nas métricas</small>
       </div>
+
     `;
 
   }
@@ -308,7 +464,6 @@ async function updateStats(u){
 }
 
 
-/* NOVO: ATUALIZA OS ACESSOS SEM PRECISAR DAR F5 */
 refreshStats?.addEventListener('click',async()=>{
 
   if(!selected)return;
@@ -322,7 +477,9 @@ refreshStats?.addEventListener('click',async()=>{
     const u=await getUnit(selected);
 
     if(u){
+
       await updateStats(u);
+
     }
 
   }catch(e){
@@ -341,6 +498,10 @@ refreshStats?.addEventListener('click',async()=>{
 
 });
 
+
+/* =========================================================
+   SELECIONAR UNIDADE
+========================================================= */
 
 async function selectUnit(id){
 
@@ -414,7 +575,7 @@ async function selectUnit(id){
 
   preview.innerHTML=
     currentLogo
-      ? `<img src="${currentLogo}" alt="Prévia">`
+      ? `<img src="${esc(currentLogo)}" alt="Prévia">`
       : 'Prévia da logo';
 
   backgroundPreview.style.backgroundImage=
@@ -439,6 +600,10 @@ async function selectUnit(id){
 
 }
 
+
+/* =========================================================
+   LOGO DO CLIENTE
+========================================================= */
 
 logoInput.addEventListener('change',()=>{
 
@@ -496,7 +661,7 @@ logoInput.addEventListener('change',()=>{
         );
 
       preview.innerHTML=
-        `<img src="${currentLogo}" alt="Prévia">`;
+        `<img src="${esc(currentLogo)}" alt="Prévia">`;
 
     };
 
@@ -508,6 +673,10 @@ logoInput.addEventListener('change',()=>{
 
 });
 
+
+/* =========================================================
+   DESFOQUE
+========================================================= */
 
 backgroundBlur.addEventListener('input',()=>{
 
@@ -522,6 +691,10 @@ backgroundBlur.addEventListener('input',()=>{
 
 });
 
+
+/* =========================================================
+   IMAGEM DE FUNDO
+========================================================= */
 
 backgroundInput.addEventListener('change',()=>{
 
@@ -600,6 +773,10 @@ backgroundInput.addEventListener('change',()=>{
 });
 
 
+/* =========================================================
+   SALVAR
+========================================================= */
+
 form.addEventListener('submit',async e=>{
 
   e.preventDefault();
@@ -618,6 +795,7 @@ form.addEventListener('submit',async e=>{
     antes das operações assíncronas,
     evitando bloqueio do navegador.
   */
+
   const previewWindow=
     window.open(
       'about:blank',
@@ -744,7 +922,9 @@ form.addEventListener('submit',async e=>{
       previewWindow&&
       !previewWindow.closed
     ){
+
       previewWindow.close();
+
     }
 
     alert(
@@ -762,6 +942,10 @@ form.addEventListener('submit',async e=>{
 
 });
 
+
+/* =========================================================
+   LIBERAR UNIDADE
+========================================================= */
 
 document
   .getElementById('release')
@@ -793,6 +977,10 @@ document
 
   };
 
+
+/* =========================================================
+   COPIAR URL
+========================================================= */
 
 copyUrl?.addEventListener(
   'click',
@@ -827,5 +1015,9 @@ copyUrl?.addEventListener(
   }
 );
 
+
+/* =========================================================
+   INICIAR
+========================================================= */
 
 boot();
