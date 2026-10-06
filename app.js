@@ -1,4 +1,3 @@
-```js
 (async function(){
 
   const app = document.getElementById('app');
@@ -16,6 +15,11 @@
 
   }
 
+  /*
+    A página fica montada por trás da intro,
+    mas permanece preparada para entrar somente
+    quando a intro terminar.
+  */
 
   if(intro){
 
@@ -67,20 +71,10 @@
     }
 
 
-    /*
-      ORDEM DOS BOTÕES
-
-      1. Google / Avaliação
-      2. WhatsApp
-      3. Instagram
-      4. Maps
-      5. Site
-    */
-
     const links = [
-      ['google','Avalie nossa empresa','Sua avaliação ajuda muito!',unit.google],
       ['whatsapp','WhatsApp','Fale conosco',unit.whatsapp],
       ['instagram','Instagram','Siga nosso perfil',unit.instagram],
+      ['google','Google','Avalie nossa empresa',unit.google],
       ['maps','Como chegar','Abra no Maps',unit.maps],
       ['site','Nosso site','Conheça mais',unit.site]
     ].filter(x => x[3]);
@@ -107,9 +101,11 @@
 
         </div>
 
+
         <h1 class="name">
           ${esc(unit.name)}
         </h1>
+
 
         ${
           unit.description
@@ -139,19 +135,7 @@
             >
 
               <span class="icon">
-
-                ${
-                  type === 'google'
-                  ?
-                  `
-                    <span class="google-logo">
-                      <span class="google-g">G</span>
-                    </span>
-                  `
-                  :
-                  icon(type)
-                }
-
+                ${icon(type)}
               </span>
 
 
@@ -161,37 +145,9 @@
                   ${title}
                 </span>
 
-
-                ${
-                  type === 'google'
-                  ?
-                  `
-                    <span class="review-line">
-
-                      <span class="subtitle">
-                        ${sub}
-                      </span>
-
-                      <span
-                        class="rating-stars"
-                        aria-hidden="true"
-                      >
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                        <span>★</span>
-                      </span>
-
-                    </span>
-                  `
-                  :
-                  `
-                    <span class="subtitle">
-                      ${sub}
-                    </span>
-                  `
-                }
+                <span class="subtitle">
+                  ${sub}
+                </span>
 
               </span>
 
@@ -214,6 +170,7 @@
           ${logoMark()}
           <span>TOQUE+</span>
         </div>
+
 
         <div class="tagline">
           Conectando negócios a pessoas.
@@ -257,13 +214,6 @@
 
           const type = el.dataset.track;
 
-          el.classList.remove('burst');
-
-          void el.offsetWidth;
-
-          el.classList.add('burst');
-
-
           try{
 
             await trackAction(
@@ -279,6 +229,13 @@
             );
 
           }
+
+
+          el.classList.remove('burst');
+
+          void el.offsetWidth;
+
+          el.classList.add('burst');
 
         });
 
@@ -310,4 +267,3 @@
   }
 
 })();
-```
