@@ -146,6 +146,10 @@ body{
   text-align:center;
   margin-bottom:22px;
   position:relative;
+
+  opacity:0;
+  transform:translateY(18px) scale(.97);
+  filter:blur(5px);
 }
 
 .profile:before{
@@ -222,6 +226,23 @@ body{
 .links{
   display:grid;
   gap:12px;
+}
+
+
+/*
+  IMPORTANTE:
+  Os botões começam invisíveis.
+  Assim não existe aquela piscada antes da animação.
+*/
+
+.links .link{
+  opacity:0;
+
+  transform:
+    translateY(30px)
+    scale(.94);
+
+  filter:blur(8px);
 }
 
 .link{
@@ -341,6 +362,9 @@ body{
 
   margin-top:28px;
   padding-top:8px;
+
+  opacity:0;
+  transform:translateY(10px);
 }
 
 .brand{
@@ -643,19 +667,6 @@ body{
 
 
 /* =========================================================
-   REDUÇÃO DE MOVIMENTO
-   ========================================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-  .link.burst{
-    animation:none;
-  }
-
-}
-
-
-/* =========================================================
    DESKTOP
    ========================================================= */
 
@@ -682,196 +693,72 @@ body{
   }
 
 }
+
+
 /* =========================================================
-   ENTRADA DA PÁGINA DO CLIENTE
-========================================================= */
-
-.reveal-profile{
-  opacity:0;
-  transform:
-    translateY(24px)
-    scale(.97);
-  filter:blur(8px);
-
-  animation:
-    profileReveal
-    .72s
-    cubic-bezier(.2,.8,.2,1)
-    1.35s
-    forwards;
-}
-
-
-.reveal-link{
-  opacity:0;
-  transform:
-    translateY(24px)
-    scale(.96);
-  filter:blur(7px);
-
-  animation:
-    linkReveal
-    .62s
-    cubic-bezier(.2,.8,.2,1)
-    calc(1.55s + var(--reveal-delay))
-    forwards;
-}
-
-
-.reveal-footer{
-  opacity:0;
-  transform:translateY(18px);
-  filter:blur(6px);
-
-  animation:
-    footerReveal
-    .65s
-    cubic-bezier(.2,.8,.2,1)
-    2s
-    forwards;
-}
-
-
-@keyframes profileReveal{
-
-  0%{
-    opacity:0;
-    transform:
-      translateY(24px)
-      scale(.97);
-    filter:blur(8px);
-  }
-
-  55%{
-    opacity:1;
-  }
-
-  100%{
-    opacity:1;
-    transform:
-      translateY(0)
-      scale(1);
-    filter:blur(0);
-  }
-
-}
-
-
-@keyframes linkReveal{
-
-  0%{
-    opacity:0;
-    transform:
-      translateY(24px)
-      scale(.96);
-    filter:blur(7px);
-  }
-
-  60%{
-    opacity:1;
-  }
-
-  100%{
-    opacity:1;
-    transform:
-      translateY(0)
-      scale(1);
-    filter:blur(0);
-  }
-
-}
-
-
-@keyframes footerReveal{
-
-  0%{
-    opacity:0;
-    transform:translateY(18px);
-    filter:blur(6px);
-  }
-
-  100%{
-    opacity:1;
-    transform:translateY(0);
-    filter:blur(0);
-  }
-
-}
-
-
-@media(prefers-reduced-motion:reduce){
-
-  .reveal-profile,
-  .reveal-link,
-  .reveal-footer{
-    animation:none;
-    opacity:1;
-    transform:none;
-    filter:none;
-  }
-
-}
-/* =========================================================
-   ANIMAÇÃO DE ENTRADA DOS BOTÕES
+   ANIMAÇÃO DA PÁGINA
    ========================================================= */
 
-.links.animate-in .link{
+/*
+  A classe page-ready só é adicionada quando
+  a intro termina.
+*/
+
+.page.page-ready .profile{
+
+  animation:
+    profileEntrance
+    .75s
+    cubic-bezier(.2,.8,.2,1)
+    both;
+
+}
+
+
+/*
+  Os botões começam somente depois da intro.
+  Cada um espera um pouco mais que o anterior.
+*/
+
+.page.page-ready .links.animate-in .link{
+
   animation:
     buttonEntrance
-    .62s
+    .85s
     cubic-bezier(.2,.8,.2,1)
     both;
 
   animation-delay:
-    calc(var(--link-index) * 90ms);
-}
-
-@keyframes buttonEntrance{
-
-  0%{
-    opacity:0;
-    transform:
-      translateY(24px)
-      scale(.94);
-
-    filter:blur(7px);
-  }
-
-  55%{
-    opacity:1;
-    transform:
-      translateY(-3px)
-      scale(1.015);
-
-    filter:blur(0);
-  }
-
-  100%{
-    opacity:1;
-    transform:
-      translateY(0)
-      scale(1);
-
-    filter:blur(0);
-  }
+    calc(var(--link-index) * 130ms);
 
 }
 
 
-/* Pequeno efeito também no perfil */
+/*
+  Rodapé aparece depois da sequência dos botões.
+*/
 
-.profile{
+.page.page-ready .links.animate-in ~ .footer{
+
   animation:
-    profileEntrance
+    footerEntrance
     .7s
     cubic-bezier(.2,.8,.2,1)
+    750ms
     both;
+
 }
+
+
+/* =========================================================
+   ANIMAÇÃO DO PERFIL
+   ========================================================= */
 
 @keyframes profileEntrance{
 
   0%{
     opacity:0;
+
     transform:
       translateY(18px)
       scale(.97);
@@ -881,6 +768,7 @@ body{
 
   100%{
     opacity:1;
+
     transform:
       translateY(0)
       scale(1);
@@ -891,43 +779,99 @@ body{
 }
 
 
-/* Rodapé aparece por último */
+/* =========================================================
+   ANIMAÇÃO DOS BOTÕES
+   ========================================================= */
 
-.footer{
-  opacity:0;
-  transform:translateY(10px);
-  transition:
-    opacity .6s ease,
-    transform .6s ease;
+@keyframes buttonEntrance{
 
-  transition-delay:600ms;
+  0%{
+    opacity:0;
+
+    transform:
+      translateY(30px)
+      scale(.94);
+
+    filter:blur(8px);
+  }
+
+  55%{
+    opacity:1;
+
+    transform:
+      translateY(-4px)
+      scale(1.015);
+
+    filter:blur(0);
+  }
+
+  100%{
+    opacity:1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter:blur(0);
+  }
+
 }
 
-.links.animate-in ~ .footer{
-  opacity:1;
-  transform:translateY(0);
+
+/* =========================================================
+   ANIMAÇÃO DO RODAPÉ
+   ========================================================= */
+
+@keyframes footerEntrance{
+
+  0%{
+    opacity:0;
+
+    transform:translateY(12px);
+
+    filter:blur(5px);
+  }
+
+  100%{
+    opacity:1;
+
+    transform:translateY(0);
+
+    filter:blur(0);
+  }
+
 }
 
 
-/* Respeita quem prefere menos movimento */
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
   .profile{
-    animation:none;
-  }
-
-  .links.animate-in .link{
-    animation:none;
     opacity:1;
     transform:none;
     filter:none;
+    animation:none !important;
+  }
+
+  .links .link{
+    opacity:1;
+    transform:none;
+    filter:none;
+    animation:none !important;
   }
 
   .footer{
     opacity:1;
     transform:none;
-    transition:none;
+    filter:none;
+    animation:none !important;
+  }
+
+  .link.burst{
+    animation:none;
   }
 
 }
