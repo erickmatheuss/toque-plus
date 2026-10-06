@@ -1,3 +1,4 @@
+```js
 (async function(){
 
   const app = document.getElementById('app');
@@ -15,12 +16,6 @@
 
   }
 
-
-  /*
-    A página fica montada por trás da intro,
-    mas permanece preparada para entrar somente
-    quando a intro terminar.
-  */
 
   if(intro){
 
@@ -75,7 +70,7 @@
     /*
       ORDEM DOS BOTÕES
 
-      1. Google / Avaliação
+      1. Avaliação Google
       2. WhatsApp
       3. Instagram
       4. Maps
@@ -156,25 +151,35 @@
                   ${title}
                 </span>
 
-                <span class="subtitle">
-                  ${sub}
-                </span>
-
-
                 ${
                   type === 'google'
                   ?
                   `
-                    <span class="rating-stars" aria-hidden="true">
-                      <span>★</span>
-                      <span>★</span>
-                      <span>★</span>
-                      <span>★</span>
-                      <span>★</span>
+                    <span class="review-meta">
+
+                      <span class="subtitle">
+                        ${sub}
+                      </span>
+
+                      <span
+                        class="rating-stars"
+                        aria-label="5 estrelas"
+                      >
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                      </span>
+
                     </span>
                   `
                   :
-                  ''
+                  `
+                    <span class="subtitle">
+                      ${sub}
+                    </span>
+                  `
                 }
 
               </span>
@@ -198,7 +203,6 @@
           ${logoMark()}
           <span>TOQUE+</span>
         </div>
-
 
         <div class="tagline">
           Conectando negócios a pessoas.
@@ -242,20 +246,16 @@
 
           const type = el.dataset.track;
 
-
           /*
-            Animação especial para avaliação
+            Mantém o efeito padrão de clique
+            dos botões, sem impedir a navegação.
           */
 
-          if(type === 'google'){
+          el.classList.remove('burst');
 
-            el.classList.remove('review-burst');
+          void el.offsetWidth;
 
-            void el.offsetWidth;
-
-            el.classList.add('review-burst');
-
-          }
+          el.classList.add('burst');
 
 
           try{
@@ -273,17 +273,6 @@
             );
 
           }
-
-
-          /*
-            Efeito padrão dos outros botões
-          */
-
-          el.classList.remove('burst');
-
-          void el.offsetWidth;
-
-          el.classList.add('burst');
 
         });
 
@@ -315,3 +304,4 @@
   }
 
 })();
+```
