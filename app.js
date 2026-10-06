@@ -1,43 +1,46 @@
 (async function(){
 
-  const app=document.getElementById('app');
+  const app = document.getElementById('app');
+  const intro = document.getElementById('intro');
+
+  function startLinkAnimation(){
+    const linksContainer = document.querySelector('.links');
+
+    if(!linksContainer) return;
+
+    linksContainer.classList.add('animate-in');
+  }
+
+  if(intro){
+    intro.addEventListener('animationend', function(event){
+      if(event.animationName === 'introOut'){
+        startLinkAnimation();
+      }
+    });
+  }
 
   try{
 
-    const unit=await getUnitFromLocation();
+    const unit = await getUnitFromLocation();
 
-    const bg=document.getElementById('background');
+    const bg = document.getElementById('background');
 
-    if(
-      unit&&
-      unit.backgroundData
-    ){
+    if(unit && unit.backgroundData){
 
-      bg.style.backgroundImage=
-        `url("${unit.backgroundData}")`;
+      bg.style.backgroundImage = `url("${unit.backgroundData}")`;
 
-      bg.style.opacity='1';
+      bg.style.opacity = '1';
 
       document.documentElement.style.setProperty(
         '--bg-blur',
-        `${
-          Number.isFinite(
-            Number(unit.backgroundBlur)
-          )
-            ? Number(unit.backgroundBlur)
-            : 7
-        }px`
+        `${Number.isFinite(Number(unit.backgroundBlur)) ? Number(unit.backgroundBlur) : 7}px`
       );
 
     }
 
+    if(!unit || unit.status !== 'configured'){
 
-    if(
-      !unit||
-      unit.status!=='configured'
-    ){
-
-      app.innerHTML=`
+      app.innerHTML = `
         <section class="empty">
           <strong>Toque+</strong>
           Esta unidade ainda não foi configurada.
@@ -45,67 +48,29 @@
       `;
 
       return;
-
     }
 
+    const links = [
+      ['whatsapp','WhatsApp','Fale conosco',unit.whatsapp],
+      ['instagram','Instagram','Siga nosso perfil',unit.instagram],
+      ['google','Google','Avalie nossa empresa',unit.google],
+      ['maps','Como chegar','Abra no Maps',unit.maps],
+      ['site','Nosso site','Conheça mais',unit.site]
+    ].filter(x => x[3]);
 
-    const links=[
-      [
-        'whatsapp',
-        'WhatsApp',
-        'Fale conosco',
-        unit.whatsapp
-      ],
-      [
-        'instagram',
-        'Instagram',
-        'Siga nosso perfil',
-        unit.instagram
-      ],
-      [
-        'google',
-        'Google',
-        'Avalie nossa empresa',
-        unit.google
-      ],
-      [
-        'maps',
-        'Como chegar',
-        'Abra no Maps',
-        unit.maps
-      ],
-      [
-        'site',
-        'Nosso site',
-        'Conheça mais',
-        unit.site
-      ]
-    ].filter(x=>x[3]);
-
-
-    app.innerHTML=`
-
-      <section class="profile reveal-profile">
+    app.innerHTML = `
+      <section class="profile">
 
         <div class="logo-wrap">
 
           ${
             unit.logoData
-              ? `
-                <img
-                  src="${esc(unit.logoData)}"
-                  alt="Logo de ${esc(unit.name)}"
-                >
-              `
-              : `
-                <span class="initials">
-                  ${esc(
-                    (unit.name||'')
-                      .slice(0,2)
-                      .toUpperCase()
-                  )}
-                </span>
-              `
+            ?
+            `<img src="${unit.logoData}" alt="Logo de ${esc(unit.name)}">`
+            :
+            `<span class="initials">
+              ${esc((unit.name || '').slice(0,2).toUpperCase())}
+            </span>`
           }
 
         </div>
@@ -116,74 +81,62 @@
 
         ${
           unit.description
-            ? `
-              <p class="description">
-                ${esc(unit.description)}
-              </p>
-            `
-            : ''
+          ?
+          `<p class="description">
+            ${esc(unit.description)}
+          </p>`
+          :
+          ''
         }
 
       </section>
-
 
       <section class="links">
 
         ${
-          links.map(
-            (
-              [type,title,sub,href],
-              index
-            )=>`
+          links.map(([type,title,sub,href], index) => `
 
-              <a
-                class="link link-${type} reveal-link"
-                href="${esc(href)}"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-track="${type}"
-                style="--reveal-delay:${index*85}ms"
-              >
+            <a
+              class="link link-${type}"
+              href="${esc(href)}"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="${type}"
+              style="--link-index:${index}"
+            >
 
-                <span class="icon">
-                  ${icon(type)}
+              <span class="icon">
+                ${icon(type)}
+              </span>
+
+              <span class="copy">
+
+                <span class="title">
+                  ${title}
                 </span>
 
-                <span class="copy">
-
-                  <span class="title">
-                    ${title}
-                  </span>
-
-                  <span class="subtitle">
-                    ${sub}
-                  </span>
-
+                <span class="subtitle">
+                  ${sub}
                 </span>
 
-                <span class="arrow">
-                  ›
-                </span>
+              </span>
 
-              </a>
+              <span class="arrow">
+                ›
+              </span>
 
-            `
-          ).join('')
+            </a>
+
+          `).join('')
         }
 
       </section>
 
-
-      <footer class="footer reveal-footer">
+      <footer class="footer">
 
         <div class="brand">
-
           ${logoMark()}
-
-          <span>
-            TOQUE+
-          </span>
-
+          <span>TOQUE+</span>
         </div>
 
         <div class="tagline">
@@ -191,13 +144,7 @@
         </div>
 
       </footer>
-
     `;
-
-
-    /*
-      Registra a visualização.
-    */
 
     try{
 
@@ -215,56 +162,45 @@
 
     }
 
-
-    /*
-      Clique nos botões.
-    */
-
     document
       .querySelectorAll('.link')
-      .forEach(el=>{
+      .forEach(el => {
 
-        el.addEventListener(
-          'click',
-          async()=>{
+        el.addEventListener('click', async () => {
 
-            const type=
-              el.dataset.track;
+          const type = el.dataset.track;
 
-            try{
+          try{
 
-              await trackAction(
-                unit.id,
-                type
-              );
+            await trackAction(
+              unit.id,
+              type
+            );
 
-            }catch(e){
+          }catch(e){
 
-              console.warn(
-                'Não foi possível registrar o clique:',
-                e
-              );
-
-            }
-
-            el.classList.remove('burst');
-
-            void el.offsetWidth;
-
-            el.classList.add('burst');
+            console.warn(
+              'Não foi possível registrar o clique:',
+              e
+            );
 
           }
-        );
+
+          el.classList.remove('burst');
+
+          void el.offsetWidth;
+
+          el.classList.add('burst');
+
+        });
 
       });
-
 
   }catch(e){
 
     console.error(e);
 
-    app.innerHTML=`
-
+    app.innerHTML = `
       <section class="empty">
 
         <strong>
@@ -274,11 +210,10 @@
         Não foi possível carregar esta unidade agora.
 
         <small>
-          ${esc(e.message||'Erro de conexão')}
+          ${esc(e.message || 'Erro de conexão')}
         </small>
 
       </section>
-
     `;
 
   }
