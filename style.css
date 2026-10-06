@@ -59,11 +59,6 @@ body{
   pointer-events:none;
 }
 
-
-/* =========================================================
-   FILTRO ESCURO
-   ========================================================= */
-
 .background-overlay{
   position:fixed;
   inset:0;
@@ -81,7 +76,7 @@ body{
 
 
 /* =========================================================
-   CONTEÚDO MOBILE
+   CONTEÚDO
    ========================================================= */
 
 .page{
@@ -100,7 +95,7 @@ body{
 
 
 /* =========================================================
-   EFEITOS AMBIENTAIS
+   AMBIENTE
    ========================================================= */
 
 .ambient{
@@ -231,14 +226,9 @@ body{
 
 .links .link{
   opacity:0;
-
-  transform:
-    translateY(30px)
-    scale(.94);
-
+  transform:translateY(30px) scale(.94);
   filter:blur(8px);
 }
-
 
 .link{
   position:relative;
@@ -275,8 +265,6 @@ body{
     transform .18s ease,
     border-color .18s ease,
     box-shadow .18s ease;
-
-  overflow:hidden;
 }
 
 .link:hover{
@@ -351,7 +339,7 @@ body{
 
 
 /* =========================================================
-   BOTÃO GOOGLE / AVALIAÇÃO
+   GOOGLE / AVALIAÇÃO
    ========================================================= */
 
 .link-google{
@@ -381,7 +369,7 @@ body{
 
 
 /* =========================================================
-   GOOGLE G
+   LOGO GOOGLE
    ========================================================= */
 
 .link-google .icon{
@@ -389,18 +377,24 @@ body{
 
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.8),
-    0 6px 18px rgba(0,0,0,.22);
+    0 6px 18px rgba(0,0,0,.20);
+}
+
+.google-logo{
+  width:27px;
+  height:27px;
+
+  display:grid;
+  place-items:center;
 }
 
 .google-g{
-  width:25px;
-  height:25px;
-  position:relative;
+  font-family:Arial,Helvetica,sans-serif;
 
-  font-family:Arial,sans-serif;
+  font-size:25px;
+  line-height:27px;
+
   font-weight:700;
-  font-size:23px;
-  line-height:25px;
 
   background:
     conic-gradient(
@@ -419,28 +413,23 @@ body{
 
 
 /* =========================================================
-   TEXTO + ESTRELAS DO GOOGLE
+   TEXTO + ESTRELAS
    ========================================================= */
 
-.review-meta{
+.review-line{
   display:flex;
   align-items:center;
 
   gap:9px;
 
-  min-width:0;
-
   margin-top:4px;
+
+  min-width:0;
 }
 
-.review-meta .subtitle{
+.review-line .subtitle{
   margin-top:0;
 }
-
-
-/*
-  Estrelas ficam ao lado da frase.
-*/
 
 .rating-stars{
   display:flex;
@@ -448,17 +437,15 @@ body{
 
   gap:1px;
 
-  flex:0 0 auto;
+  flex-shrink:0;
 
   font-size:10px;
   line-height:1;
 
   color:#FFD84D;
 
-  letter-spacing:.5px;
-
   filter:
-    drop-shadow(0 0 3px rgba(255,216,77,.25));
+    drop-shadow(0 0 3px rgba(255,216,77,.35));
 }
 
 .rating-stars span{
@@ -468,21 +455,25 @@ body{
 
   transform:
     scale(.25)
-    rotate(-20deg);
+    rotate(-18deg);
 
-  filter:
-    blur(3px);
+  filter:blur(3px);
 
   transform-origin:center;
 }
 
 
 /*
-  As estrelas entram depois do botão aparecer.
+   As estrelas começam depois que o botão
+   já apareceu na tela.
 */
 
 .page.page-ready .link-google .rating-stars span{
-  animation:reviewStarEntrance .55s cubic-bezier(.2,.9,.3,1.25) both;
+  animation:
+    reviewStarEntrance
+    .52s
+    cubic-bezier(.2,.9,.3,1.25)
+    both;
 }
 
 .page.page-ready .link-google .rating-stars span:nth-child(1){
@@ -505,7 +496,6 @@ body{
   animation-delay:740ms;
 }
 
-
 @keyframes reviewStarEntrance{
 
   0%{
@@ -513,11 +503,9 @@ body{
 
     transform:
       scale(.25)
-      rotate(-20deg);
+      rotate(-18deg);
 
-    filter:
-      blur(3px)
-      drop-shadow(0 0 0 rgba(255,216,77,0));
+    filter:blur(3px);
   }
 
   55%{
@@ -547,43 +535,8 @@ body{
 }
 
 
-/*
-  Depois que todas apareceram,
-  elas fazem uma pequena pulsada conjunta.
-*/
-
-.page.page-ready .link-google .rating-stars{
-  animation:
-    starsGlow
-    .65s
-    ease
-    1.32s
-    both;
-}
-
-@keyframes starsGlow{
-
-  0%{
-    filter:
-      drop-shadow(0 0 3px rgba(255,216,77,.25));
-  }
-
-  45%{
-    filter:
-      drop-shadow(0 0 8px rgba(255,216,77,.80))
-      drop-shadow(0 0 15px rgba(255,216,77,.35));
-  }
-
-  100%{
-    filter:
-      drop-shadow(0 0 3px rgba(255,216,77,.30));
-  }
-
-}
-
-
 /* =========================================================
-   CORES DOS OUTROS BOTÕES
+   OUTROS BOTÕES
    ========================================================= */
 
 .link-whatsapp{
@@ -754,12 +707,7 @@ body{
 
   background:#05060a;
 
-  animation:
-    introOut
-    .5s
-    ease
-    1.05s
-    forwards;
+  animation:introOut .5s ease 1.05s forwards;
 }
 
 .intro-inner{
@@ -854,7 +802,7 @@ body{
 
 
 /* =========================================================
-   LOGO PNG OFICIAL
+   LOGO TOQUE+
    ========================================================= */
 
 .brand-logo-image{
@@ -875,7 +823,7 @@ body{
 
 
 /* =========================================================
-   EFEITO DE CLIQUE
+   CLIQUE
    ========================================================= */
 
 .link:active{
@@ -945,17 +893,14 @@ body{
    ========================================================= */
 
 .page.page-ready .profile{
-
   animation:
     profileEntrance
     .75s
     cubic-bezier(.2,.8,.2,1)
     both;
-
 }
 
 .page.page-ready .links.animate-in .link{
-
   animation:
     buttonEntrance
     .85s
@@ -964,23 +909,20 @@ body{
 
   animation-delay:
     calc(var(--link-index) * 130ms);
-
 }
 
 .page.page-ready .links.animate-in ~ .footer{
-
   animation:
     footerEntrance
     .7s
     cubic-bezier(.2,.8,.2,1)
     750ms
     both;
-
 }
 
 
 /* =========================================================
-   ANIMAÇÃO DO PERFIL
+   PERFIL
    ========================================================= */
 
 @keyframes profileEntrance{
@@ -1009,7 +951,7 @@ body{
 
 
 /* =========================================================
-   ANIMAÇÃO DOS BOTÕES
+   BOTÕES
    ========================================================= */
 
 @keyframes buttonEntrance{
@@ -1048,7 +990,7 @@ body{
 
 
 /* =========================================================
-   ANIMAÇÃO DO RODAPÉ
+   FOOTER
    ========================================================= */
 
 @keyframes footerEntrance{
