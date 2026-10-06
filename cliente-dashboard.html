@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -30,6 +31,8 @@
       --muted:rgba(255,255,255,.76);
       --purple:#7B61FF;
       --cyan:#00E5FF;
+      --positive:#63e6a7;
+      --negative:#ff7d91;
     }
 
 
@@ -327,7 +330,7 @@
 
       padding:20px;
 
-      min-height:140px;
+      min-height:150px;
 
       border:1px solid var(--line);
 
@@ -408,6 +411,42 @@
       font-weight:700;
 
       line-height:1;
+
+    }
+
+
+    .metric-comparison{
+
+      display:block;
+
+      margin-top:9px;
+
+      font-size:11px;
+
+      font-weight:600;
+
+      min-height:13px;
+
+    }
+
+
+    .metric-comparison.positive{
+
+      color:var(--positive);
+
+    }
+
+
+    .metric-comparison.negative{
+
+      color:var(--negative);
+
+    }
+
+
+    .metric-comparison.neutral{
+
+      color:var(--muted);
 
     }
 
@@ -765,7 +804,7 @@
 
       .metric{
 
-        min-height:118px;
+        min-height:128px;
 
         padding:16px;
 
@@ -795,6 +834,13 @@
       .metric-value{
 
         font-size:25px;
+
+      }
+
+
+      .metric-comparison{
+
+        font-size:10px;
 
       }
 
@@ -916,7 +962,7 @@
 
       .metric{
 
-        min-height:112px;
+        min-height:122px;
 
         padding:14px;
 
@@ -948,6 +994,15 @@
       .metric-value{
 
         font-size:24px;
+
+      }
+
+
+      .metric-comparison{
+
+        font-size:9px;
+
+        margin-top:8px;
 
       }
 
@@ -1157,6 +1212,13 @@
             —
           </div>
 
+          <span
+            class="metric-comparison neutral"
+            id="comparison-visualizacao"
+          >
+            —
+          </span>
+
         </div>
 
 
@@ -1176,6 +1238,13 @@
           >
             —
           </div>
+
+          <span
+            class="metric-comparison neutral"
+            id="comparison-whatsapp"
+          >
+            —
+          </span>
 
         </div>
 
@@ -1197,6 +1266,13 @@
             —
           </div>
 
+          <span
+            class="metric-comparison neutral"
+            id="comparison-instagram"
+          >
+            —
+          </span>
+
         </div>
 
 
@@ -1216,6 +1292,13 @@
           >
             —
           </div>
+
+          <span
+            class="metric-comparison neutral"
+            id="comparison-google"
+          >
+            —
+          </span>
 
         </div>
 
@@ -1237,6 +1320,13 @@
             —
           </div>
 
+          <span
+            class="metric-comparison neutral"
+            id="comparison-maps"
+          >
+            —
+          </span>
+
         </div>
 
 
@@ -1256,6 +1346,13 @@
           >
             —
           </div>
+
+          <span
+            class="metric-comparison neutral"
+            id="comparison-site"
+          >
+            —
+          </span>
 
         </div>
 
@@ -1294,7 +1391,6 @@
             id="insightTexto"
           >
             Estamos analisando as interações dos seus clientes com sua página Toque+.
-
           </p>
 
         </div>
@@ -1502,6 +1598,41 @@
     };
 
 
+    const comparisonElements = {
+
+      visualizacao:
+        document.getElementById(
+          'comparison-visualizacao'
+        ),
+
+      whatsapp:
+        document.getElementById(
+          'comparison-whatsapp'
+        ),
+
+      instagram:
+        document.getElementById(
+          'comparison-instagram'
+        ),
+
+      google:
+        document.getElementById(
+          'comparison-google'
+        ),
+
+      maps:
+        document.getElementById(
+          'comparison-maps'
+        ),
+
+      site:
+        document.getElementById(
+          'comparison-site'
+        )
+
+    };
+
+
     /* =========================
        INSIGHTS
     ========================= */
@@ -1531,7 +1662,7 @@
 
 
     /* =========================
-       VARIÁVEIS DO GRÁFICO
+       VARIÁVEIS
     ========================= */
 
     let unidadeAtual = null;
@@ -1539,6 +1670,140 @@
     let chart = null;
 
     let diasSelecionados = 7;
+
+    let acessosAtual = [];
+
+
+    /* =========================
+       DATA / HORÁRIO DO BRASIL
+    ========================= */
+
+    function dataBrasilHoje(){
+
+      const partes =
+        new Intl.DateTimeFormat(
+          'en-CA',
+          {
+            timeZone:'America/Sao_Paulo',
+            year:'numeric',
+            month:'2-digit',
+            day:'2-digit'
+          }
+        ).formatToParts(
+          new Date()
+        );
+
+
+      const valores = {};
+
+      for(
+        const parte
+        of partes
+      ){
+
+        if(
+          parte.type !== 'literal'
+        ){
+
+          valores[
+            parte.type
+          ] =
+            parte.value;
+
+        }
+
+      }
+
+
+      return (
+        `${valores.year}-` +
+        `${valores.month}-` +
+        `${valores.day}`
+      );
+
+    }
+
+
+    function criarDataBrasil(
+      dataString
+    ){
+
+      return new Date(
+        `${dataString}T00:00:00-03:00`
+      );
+
+    }
+
+
+    function chaveDataBrasil(
+      timestamp
+    ){
+
+      return new Intl.DateTimeFormat(
+        'en-CA',
+        {
+          timeZone:'America/Sao_Paulo',
+          year:'numeric',
+          month:'2-digit',
+          day:'2-digit'
+        }
+      ).format(
+        new Date(timestamp)
+      );
+
+    }
+
+
+    function inicioPeriodo(
+      dias
+    ){
+
+      const hoje =
+        criarDataBrasil(
+          dataBrasilHoje()
+        );
+
+
+      const inicio =
+        new Date(hoje);
+
+
+      inicio.setDate(
+        inicio.getDate() -
+        (dias - 1)
+      );
+
+
+      return inicio;
+
+    }
+
+
+    function inicioPeriodoAnterior(
+      dias
+    ){
+
+      const inicioAtual =
+        inicioPeriodo(
+          dias
+        );
+
+
+      const inicioAnterior =
+        new Date(
+          inicioAtual
+        );
+
+
+      inicioAnterior.setDate(
+        inicioAnterior.getDate() -
+        dias
+      );
+
+
+      return inicioAnterior;
+
+    }
 
 
     /* =========================
@@ -1692,7 +1957,7 @@
 
 
       /*
-       * Guarda unidade para o gráfico
+       * Guarda unidade
        */
 
       unidadeAtual =
@@ -1708,43 +1973,108 @@
 
 
       /*
-       * Busca todos os acessos
+       * Carrega dados
        */
 
+      await atualizarDadosPeriodo();
+
+
+      mensagem.textContent =
+        'Dados atualizados.';
+
+    }
+
+
+    /* =========================
+       CARREGAR ACESSOS
+    ========================= */
+
+    async function carregarAcessos(){
+
+      if(!unidadeAtual){
+
+        return [];
+
+      }
+
+
+      /*
+       * Precisamos buscar desde o
+       * início do período anterior.
+       *
+       * Isso permite comparar:
+       *
+       * período atual
+       * x
+       * período anterior
+       */
+
+      const inicio =
+        inicioPeriodoAnterior(
+          diasSelecionados
+        );
+
+
       const {
-        data: acessos,
-        error: acessosError
+        data,
+        error
       } = await sb
 
         .from('acessos')
 
-        .select('tipo')
+        .select(
+          'tipo, criado_em'
+        )
 
         .eq(
           'unidade_id',
-          unidadeCliente.id
+          unidadeAtual.id
+        )
+
+        .gte(
+          'criado_em',
+          inicio.toISOString()
+        )
+
+        .order(
+          'criado_em',
+          {
+            ascending:true
+          }
         );
 
 
-      if(acessosError){
+      if(error){
 
         console.error(
-          'Erro ao buscar métricas:',
-          acessosError
+          'Erro ao buscar acessos:',
+          error
         );
 
 
         mensagem.textContent =
           'Não foi possível carregar as métricas.';
 
-        return;
+
+        return null;
 
       }
 
 
-      /*
-       * Inicializa contadores
-       */
+      return data || [];
+
+    }
+
+
+    /* =========================
+       CONTAR PERÍODO
+    ========================= */
+
+    function contarPeriodo(
+      acessos,
+      inicio,
+      fim
+    ){
 
       const contagem = {
 
@@ -1763,16 +2093,20 @@
       };
 
 
-      /*
-       * Conta acessos
-       */
-
       for(
         const acesso
         of acessos || []
       ){
 
+        const data =
+          new Date(
+            acesso.criado_em
+          );
+
+
         if(
+          data >= inicio &&
+          data < fim &&
           Object.prototype.hasOwnProperty.call(
             contagem,
             acesso.tipo
@@ -1788,6 +2122,66 @@
       }
 
 
+      return contagem;
+
+    }
+
+
+    /* =========================
+       ATUALIZAR DADOS DO PERÍODO
+    ========================= */
+
+    async function atualizarDadosPeriodo(){
+
+      const acessos =
+        await carregarAcessos();
+
+
+      if(
+        acessos === null
+      ){
+
+        return;
+
+      }
+
+
+      acessosAtual =
+        acessos;
+
+
+      const inicioAtual =
+        inicioPeriodo(
+          diasSelecionados
+        );
+
+
+      const inicioAnterior =
+        inicioPeriodoAnterior(
+          diasSelecionados
+        );
+
+
+      const fimAtual =
+        new Date();
+
+
+      const contagemAtual =
+        contarPeriodo(
+          acessos,
+          inicioAtual,
+          fimAtual
+        );
+
+
+      const contagemAnterior =
+        contarPeriodo(
+          acessos,
+          inicioAnterior,
+          inicioAtual
+        );
+
+
       /*
        * Atualiza cards
        */
@@ -1800,7 +2194,25 @@
         metricElements[
           tipo
         ].textContent =
-          contagem[tipo];
+          contagemAtual[tipo];
+
+      }
+
+
+      /*
+       * Atualiza comparações
+       */
+
+      for(
+        const tipo
+        in comparisonElements
+      ){
+
+        atualizarComparacao(
+          tipo,
+          contagemAtual[tipo],
+          contagemAnterior[tipo]
+        );
 
       }
 
@@ -1810,19 +2222,149 @@
        */
 
       atualizarInsights(
-        contagem
+        contagemAtual,
+        contagemAnterior
       );
 
 
-      mensagem.textContent =
-        'Dados atualizados.';
+      /*
+       * Atualiza gráfico
+       */
+
+      atualizarGrafico(
+        acessos
+      );
+
+    }
+
+
+    /* =========================
+       COMPARAÇÃO
+    ========================= */
+
+    function atualizarComparacao(
+      tipo,
+      atual,
+      anterior
+    ){
+
+      const elemento =
+        comparisonElements[
+          tipo
+        ];
+
+
+      if(!elemento){
+
+        return;
+
+      }
+
+
+      elemento.className =
+        'metric-comparison neutral';
 
 
       /*
-       * Carrega gráfico
+       * Sem dados anteriores
        */
 
-      await carregarGrafico();
+      if(
+        anterior === 0 &&
+        atual === 0
+      ){
+
+        elemento.textContent =
+          '— sem alterações';
+
+        return;
+
+      }
+
+
+      /*
+       * Começou a receber ações
+       */
+
+      if(
+        anterior === 0 &&
+        atual > 0
+      ){
+
+        elemento.className =
+          'metric-comparison positive';
+
+
+        elemento.textContent =
+          '↑ novo período';
+
+
+        return;
+
+      }
+
+
+      /*
+       * Calcula variação
+       */
+
+      const variacao =
+        (
+          (
+            atual -
+            anterior
+          ) /
+          anterior
+        ) * 100;
+
+
+      const valor =
+        Math.abs(
+          variacao
+        )
+          .toFixed(1)
+          .replace(
+            '.',
+            ','
+          );
+
+
+      if(
+        variacao > 0
+      ){
+
+        elemento.className =
+          'metric-comparison positive';
+
+
+        elemento.textContent =
+          `↑ ${valor}% vs. período anterior`;
+
+
+        return;
+
+      }
+
+
+      if(
+        variacao < 0
+      ){
+
+        elemento.className =
+          'metric-comparison negative';
+
+
+        elemento.textContent =
+          `↓ ${valor}% vs. período anterior`;
+
+
+        return;
+
+      }
+
+
+      elemento.textContent =
+        '— igual ao período anterior';
 
     }
 
@@ -1832,7 +2374,8 @@
     ========================= */
 
     function atualizarInsights(
-      contagem
+      contagem,
+      anterior
     ){
 
       const visualizacoes =
@@ -1847,10 +2390,24 @@
         contagem.site;
 
 
+      const visualizacoesAnterior =
+        anterior.visualizacao;
+
+
+      const interacoesAnterior =
+        anterior.whatsapp +
+        anterior.instagram +
+        anterior.google +
+        anterior.maps +
+        anterior.site;
+
+
       let taxa = 0;
 
 
-      if(visualizacoes > 0){
+      if(
+        visualizacoes > 0
+      ){
 
         taxa =
           (
@@ -1861,20 +2418,13 @@
       }
 
 
-      /*
-       * Evita porcentagem acima
-       * de 100% visualmente.
-       *
-       * Uma pessoa pode realizar
-       * mais de uma ação, então
-       * a taxa real pode ultrapassar
-       * 100%.
-       */
-
       const taxaFormatada =
         taxa
           .toFixed(1)
-          .replace('.',',');
+          .replace(
+            '.',
+            ','
+          );
 
 
       taxaInteracao.textContent =
@@ -1886,11 +2436,11 @@
           interacoes === 1
             ? 'interação'
             : 'interações'
-        } realizadas`;
+        } no período`;
 
 
       /*
-       * Nenhuma visualização ainda
+       * Sem visualizações
        */
 
       if(
@@ -1902,9 +2452,84 @@
 
 
         insightTexto.textContent =
-          'Assim que seus clientes começarem a acessar sua página Toque+, você verá aqui como eles estão interagindo com seu negócio.';
+          `Ainda não houve visualizações nos últimos ${diasSelecionados} dias. Assim que seus clientes começarem a acessar sua página, os resultados aparecerão aqui.`;
+
 
         return;
+
+      }
+
+
+      /*
+       * Crescimento forte
+       */
+
+      if(
+        visualizacoesAnterior > 0
+      ){
+
+        const crescimento =
+          (
+            (
+              visualizacoes -
+              visualizacoesAnterior
+            ) /
+            visualizacoesAnterior
+          ) * 100;
+
+
+        if(
+          crescimento >= 20
+        ){
+
+          const valor =
+            crescimento
+              .toFixed(1)
+              .replace(
+                '.',
+                ','
+              );
+
+
+          insightTitulo.textContent =
+            'Sua página está crescendo';
+
+
+          insightTexto.textContent =
+            `Você teve ${visualizacoes} visualizações nos últimos ${diasSelecionados} dias, um aumento de ${valor}% em relação ao período anterior. ${interacoes > 0 ? `Foram ${interacoes} interações realizadas pelos seus clientes.` : 'Continue divulgando seu Toque+ para transformar esses acessos em interações.'}`;
+
+
+          return;
+
+        }
+
+
+        if(
+          crescimento <= -20
+        ){
+
+          const valor =
+            Math.abs(
+              crescimento
+            )
+              .toFixed(1)
+              .replace(
+                '.',
+                ','
+              );
+
+
+          insightTitulo.textContent =
+            'Os acessos diminuíram neste período';
+
+
+          insightTexto.textContent =
+            `Sua página teve ${visualizacoes} visualizações nos últimos ${diasSelecionados} dias, ${valor}% a menos que no período anterior. Continue divulgando seu Toque+ para recuperar o volume de acessos.`;
+
+
+          return;
+
+        }
 
       }
 
@@ -1922,7 +2547,8 @@
 
 
         insightTexto.textContent =
-          `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Isso mostra um alto nível de interesse no seu negócio.`;
+          `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Isso representa uma taxa de interação de ${taxaFormatada}%.`;
+
 
         return;
 
@@ -1930,7 +2556,7 @@
 
 
       /*
-       * Boa quantidade de interações
+       * Boa quantidade
        */
 
       if(
@@ -1943,6 +2569,7 @@
 
         insightTexto.textContent =
           `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Seus clientes estão encontrando caminhos para entrar em contato ou conhecer melhor seu negócio.`;
+
 
         return;
 
@@ -1962,7 +2589,8 @@
 
 
         insightTexto.textContent =
-          `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Continue divulgando seu Toque+ para aumentar o número de interações.`;
+          `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Continue divulgando seu Toque+ para aumentar as oportunidades de interação.`;
+
 
         return;
 
@@ -1970,7 +2598,7 @@
 
 
       /*
-       * Visualizações sem ações
+       * Sem ações
        */
 
       insightTitulo.textContent =
@@ -1978,97 +2606,23 @@
 
 
       insightTexto.textContent =
-        `${visualizacoes} pessoas acessaram sua página, mas ainda não realizaram uma ação. Continue divulgando seu Toque+ para aumentar as oportunidades de interação.`;
+        `${visualizacoes} pessoas acessaram sua página nos últimos ${diasSelecionados} dias, mas ainda não realizaram uma ação. Continue divulgando seu Toque+ para aumentar as oportunidades de interação.`;
 
     }
 
 
     /* =========================
-       CARREGAR GRÁFICO
+       ATUALIZAR GRÁFICO
     ========================= */
 
-    async function carregarGrafico(){
-
-
-      if(!unidadeAtual){
-
-        return;
-
-      }
-
-
-      const agora =
-        new Date();
-
+    function atualizarGrafico(
+      acessos
+    ){
 
       const inicio =
-        new Date(
-          agora.getTime() -
-          (
-            (diasSelecionados - 1) *
-            24 *
-            60 *
-            60 *
-            1000
-          )
+        inicioPeriodo(
+          diasSelecionados
         );
-
-
-      inicio.setHours(
-        0,
-        0,
-        0,
-        0
-      );
-
-
-      /*
-       * Busca visualizações
-       * dentro do período
-       */
-
-      const {
-        data,
-        error
-      } = await sb
-
-        .from('acessos')
-
-        .select('criado_em')
-
-        .eq(
-          'unidade_id',
-          unidadeAtual.id
-        )
-
-        .eq(
-          'tipo',
-          'visualizacao'
-        )
-
-        .gte(
-          'criado_em',
-          inicio.toISOString()
-        )
-
-        .order(
-          'criado_em',
-          {
-            ascending:true
-          }
-        );
-
-
-      if(error){
-
-        console.error(
-          'Erro ao carregar gráfico:',
-          error
-        );
-
-        return;
-
-      }
 
 
       const labels = [];
@@ -2087,18 +2641,23 @@
       ){
 
         const dia =
-          new Date(inicio);
+          new Date(
+            inicio
+          );
 
 
         dia.setDate(
-          inicio.getDate() + i
+          dia.getDate() + i
         );
 
 
         const chave =
           dia
             .toISOString()
-            .slice(0,10);
+            .slice(
+              0,
+              10
+            );
 
 
         const label =
@@ -2116,14 +2675,38 @@
         );
 
 
+        /*
+         * Conta visualizações
+         * usando horário de Brasília
+         */
+
         const quantidade =
-          (data || [])
-            .filter(
-              acesso =>
-                acesso.criado_em
-                  .slice(0,10) === chave
-            )
-            .length;
+          acessos.filter(
+            acesso => {
+
+              if(
+                acesso.tipo !==
+                'visualizacao'
+              ){
+
+                return false;
+
+              }
+
+
+              const dataAcesso =
+                chaveDataBrasil(
+                  acesso.criado_em
+                );
+
+
+              return (
+                dataAcesso ===
+                chave
+              );
+
+            }
+          ).length;
 
 
         valores.push(
@@ -2292,6 +2875,27 @@
 
 
               /*
+               * Evita recarregar o
+               * mesmo período
+               */
+
+              const novoPeriodo =
+                Number(
+                  button.dataset.days
+                );
+
+
+              if(
+                novoPeriodo ===
+                diasSelecionados
+              ){
+
+                return;
+
+              }
+
+
+              /*
                * Remove seleção
                */
 
@@ -2324,16 +2928,22 @@
                */
 
               diasSelecionados =
-                Number(
-                  button.dataset.days
-                );
+                novoPeriodo;
 
 
               /*
-               * Atualiza gráfico
+               * Recarrega tudo
                */
 
-              await carregarGrafico();
+              mensagem.textContent =
+                'Atualizando dados...';
+
+
+              await atualizarDadosPeriodo();
+
+
+              mensagem.textContent =
+                'Dados atualizados.';
 
             }
           );
@@ -2374,3 +2984,4 @@
 </body>
 
 </html>
+```
