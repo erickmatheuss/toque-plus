@@ -1,15 +1,17 @@
-```html
+<html>
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Toque+ | Painel do cliente</title>
 
@@ -31,10 +33,7 @@
       --muted:rgba(255,255,255,.76);
       --purple:#7B61FF;
       --cyan:#00E5FF;
-      --positive:#63e6a7;
-      --negative:#ff7d91;
     }
-
 
     body{
 
@@ -68,7 +67,6 @@
 
     }
 
-
     .container{
 
       width:100%;
@@ -78,7 +76,6 @@
       margin:0 auto;
 
     }
-
 
     /* =========================
        TOPO
@@ -98,7 +95,6 @@
 
     }
 
-
     .brand{
 
       display:flex;
@@ -108,7 +104,6 @@
       gap:12px;
 
     }
-
 
     .brand img{
 
@@ -120,13 +115,11 @@
 
     }
 
-
     .brand strong{
 
       font-size:20px;
 
     }
-
 
     .logout{
 
@@ -146,7 +139,6 @@
 
     }
 
-
     .logout:hover{
 
       background:rgba(255,255,255,.09);
@@ -154,7 +146,6 @@
       transform:translateY(-1px);
 
     }
-
 
     /* =========================
        CABEÇALHO
@@ -165,7 +156,6 @@
       margin-bottom:28px;
 
     }
-
 
     .eyebrow{
 
@@ -183,7 +173,6 @@
 
     }
 
-
     h1{
 
       margin:0 0 8px;
@@ -194,7 +183,6 @@
 
     }
 
-
     .description{
 
       margin:0;
@@ -204,7 +192,6 @@
       font-size:15px;
 
     }
-
 
     /* =========================
        UNIDADE
@@ -234,7 +221,6 @@
 
     }
 
-
     .unit-label{
 
       display:block;
@@ -247,7 +233,6 @@
 
     }
 
-
     .unit-code{
 
       font-size:22px;
@@ -255,7 +240,6 @@
       font-weight:700;
 
     }
-
 
     .status{
 
@@ -281,7 +265,6 @@
 
     }
 
-
     .status-dot{
 
       width:7px;
@@ -297,7 +280,6 @@
 
     }
 
-
     /* =========================
        MÉTRICAS
     ========================= */
@@ -310,7 +292,6 @@
 
     }
 
-
     .metrics{
 
       display:grid;
@@ -321,7 +302,6 @@
 
     }
 
-
     .metric{
 
       position:relative;
@@ -330,7 +310,7 @@
 
       padding:20px;
 
-      min-height:150px;
+      min-height:140px;
 
       border:1px solid var(--line);
 
@@ -344,7 +324,6 @@
 
     }
 
-
     .metric:hover{
 
       transform:translateY(-2px);
@@ -356,7 +335,6 @@
         0 14px 35px rgba(0,0,0,.20);
 
     }
-
 
     .metric::after{
 
@@ -381,7 +359,6 @@
 
     }
 
-
     .metric-icon{
 
       font-size:20px;
@@ -389,7 +366,6 @@
       margin-bottom:16px;
 
     }
-
 
     .metric-label{
 
@@ -403,7 +379,6 @@
 
     }
 
-
     .metric-value{
 
       font-size:30px;
@@ -414,43 +389,6 @@
 
     }
 
-
-    .metric-comparison{
-
-      display:block;
-
-      margin-top:9px;
-
-      font-size:11px;
-
-      font-weight:600;
-
-      min-height:13px;
-
-    }
-
-
-    .metric-comparison.positive{
-
-      color:var(--positive);
-
-    }
-
-
-    .metric-comparison.negative{
-
-      color:var(--negative);
-
-    }
-
-
-    .metric-comparison.neutral{
-
-      color:var(--muted);
-
-    }
-
-
     /* =========================
        INSIGHTS
     ========================= */
@@ -460,7 +398,6 @@
       margin-top:24px;
 
     }
-
 
     .insights-card{
 
@@ -492,7 +429,6 @@
 
     }
 
-
     .insights-card::before{
 
       content:"";
@@ -516,7 +452,6 @@
 
     }
 
-
     .insights-content{
 
       position:relative;
@@ -524,7 +459,6 @@
       z-index:1;
 
     }
-
 
     .insights-label{
 
@@ -542,7 +476,6 @@
 
     }
 
-
     .insights-title{
 
       margin:0 0 9px;
@@ -552,7 +485,6 @@
       line-height:1.2;
 
     }
-
 
     .insights-text{
 
@@ -567,7 +499,6 @@
       max-width:570px;
 
     }
-
 
     .insights-highlight{
 
@@ -587,7 +518,6 @@
 
     }
 
-
     .interaction-label{
 
       color:var(--muted);
@@ -597,7 +527,6 @@
       margin-bottom:6px;
 
     }
-
 
     .interaction-value{
 
@@ -622,7 +551,6 @@
 
     }
 
-
     .interaction-sub{
 
       margin-top:7px;
@@ -633,7 +561,6 @@
 
     }
 
-
     /* =========================
        GRÁFICO
     ========================= */
@@ -643,7 +570,6 @@
       margin-top:30px;
 
     }
-
 
     .chart-header{
 
@@ -659,13 +585,11 @@
 
     }
 
-
     .chart-header .section-title{
 
       margin:0;
 
     }
-
 
     .period-selector{
 
@@ -683,7 +607,6 @@
         rgba(255,255,255,.035);
 
     }
-
 
     .period{
 
@@ -705,7 +628,6 @@
 
     }
 
-
     .period:hover{
 
       color:#fff;
@@ -714,7 +636,6 @@
         rgba(255,255,255,.06);
 
     }
-
 
     .period.active{
 
@@ -732,7 +653,6 @@
 
     }
 
-
     .chart-card{
 
       padding:20px;
@@ -747,7 +667,6 @@
 
     }
 
-
     .chart-wrapper{
 
       position:relative;
@@ -755,7 +674,6 @@
       height:280px;
 
     }
-
 
     /* =========================
        MENSAGEM
@@ -771,7 +689,6 @@
 
     }
 
-
     /* =========================
        TABLET / CELULAR
     ========================= */
@@ -784,13 +701,11 @@
 
       }
 
-
       .container{
 
         width:100%;
 
       }
-
 
       .metrics{
 
@@ -801,17 +716,15 @@
 
       }
 
-
       .metric{
 
-        min-height:128px;
+        min-height:118px;
 
         padding:16px;
 
         border-radius:16px;
 
       }
-
 
       .metric-icon{
 
@@ -821,7 +734,6 @@
 
       }
 
-
       .metric-label{
 
         font-size:12px;
@@ -830,20 +742,11 @@
 
       }
 
-
       .metric-value{
 
         font-size:25px;
 
       }
-
-
-      .metric-comparison{
-
-        font-size:10px;
-
-      }
-
 
       .insights-card{
 
@@ -855,7 +758,6 @@
 
       }
 
-
       .insights-highlight{
 
         align-items:flex-start;
@@ -864,13 +766,11 @@
 
       }
 
-
       .interaction-value{
 
         font-size:34px;
 
       }
-
 
       h1{
 
@@ -879,7 +779,6 @@
       }
 
     }
-
 
     /* =========================
        CELULARES PEQUENOS
@@ -893,13 +792,11 @@
 
       }
 
-
       .brand strong{
 
         font-size:18px;
 
       }
-
 
       .brand img{
 
@@ -909,7 +806,6 @@
 
       }
 
-
       .logout{
 
         padding:9px 13px;
@@ -917,7 +813,6 @@
         font-size:13px;
 
       }
-
 
       .unit-card{
 
@@ -933,13 +828,11 @@
 
       }
 
-
       .unit-code{
 
         font-size:20px;
 
       }
-
 
       .status{
 
@@ -948,7 +841,6 @@
         padding:7px 10px;
 
       }
-
 
       .metrics{
 
@@ -959,17 +851,15 @@
 
       }
 
-
       .metric{
 
-        min-height:122px;
+        min-height:112px;
 
         padding:14px;
 
         border-radius:15px;
 
       }
-
 
       .metric-icon{
 
@@ -978,7 +868,6 @@
         margin-bottom:9px;
 
       }
-
 
       .metric-label{
 
@@ -990,22 +879,11 @@
 
       }
 
-
       .metric-value{
 
         font-size:24px;
 
       }
-
-
-      .metric-comparison{
-
-        font-size:9px;
-
-        margin-top:8px;
-
-      }
-
 
       .insights-card{
 
@@ -1015,13 +893,11 @@
 
       }
 
-
       .insights-title{
 
         font-size:19px;
 
       }
-
 
       .insights-text{
 
@@ -1029,13 +905,11 @@
 
       }
 
-
       .interaction-value{
 
         font-size:32px;
 
       }
-
 
       .chart-header{
 
@@ -1045,20 +919,17 @@
 
       }
 
-
       .period-selector{
 
         width:100%;
 
       }
 
-
       .period{
 
         flex:1;
 
       }
-
 
       .chart-card{
 
@@ -1067,7 +938,6 @@
         border-radius:17px;
 
       }
-
 
       .chart-wrapper{
 
@@ -1081,434 +951,348 @@
 
 </head>
 
-
 <body>
-
 
   <div class="container">
 
-
-    <!-- =========================
-         TOPO
-    ========================= -->
-
-    <header class="topbar">
-
-      <div class="brand">
-
-        <img
-          src="/logo-toque.png"
-          alt="Toque+"
-        >
-
-        <strong>
-          Toque+
-        </strong>
-
-      </div>
-
-
-      <button
-        class="logout"
-        id="logout"
-      >
-        Sair
-      </button>
-
-    </header>
-
-
-    <!-- =========================
-         BOAS-VINDAS
-    ========================= -->
-
-    <section class="welcome">
-
-      <p class="eyebrow">
-        Painel do cliente
-      </p>
-
-
-      <h1 id="nomeCliente">
-        Carregando...
-      </h1>
-
-
-      <p
-        class="description"
-        id="descricao"
-      >
-        Buscando seus dados...
-      </p>
-
-    </section>
-
-
-    <!-- =========================
-         UNIDADE
-    ========================= -->
-
-    <section class="unit-card">
-
-      <div>
-
-        <span class="unit-label">
-          Unidade Toque+
-        </span>
-
-
-        <span
-          class="unit-code"
-          id="unidade"
-        >
-          ...
-        </span>
-
-      </div>
-
-
-      <div class="status">
-
-        <span class="status-dot"></span>
-
-
-        <span id="statusUnidade">
-          ...
-        </span>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         MÉTRICAS
-    ========================= -->
-
-    <section>
-
-      <h2 class="section-title">
-        Visão geral
-      </h2>
-
-
-      <div class="metrics">
-
-
-        <div class="metric">
-
-          <div class="metric-icon">
-            👁️
-          </div>
-
-          <span class="metric-label">
-            Visualizações
-          </span>
-
-          <div
-            class="metric-value"
-            id="views"
-          >
-            —
-          </div>
-
-          <span
-            class="metric-comparison neutral"
-            id="comparison-visualizacao"
-          >
-            —
-          </span>
-
-        </div>
-
-
-        <div class="metric">
-
-          <div class="metric-icon">
-            💬
-          </div>
-
-          <span class="metric-label">
-            WhatsApp
-          </span>
-
-          <div
-            class="metric-value"
-            id="whatsapp"
-          >
-            —
-          </div>
-
-          <span
-            class="metric-comparison neutral"
-            id="comparison-whatsapp"
-          >
-            —
-          </span>
-
-        </div>
-
-
-        <div class="metric">
-
-          <div class="metric-icon">
-            📸
-          </div>
-
-          <span class="metric-label">
-            Instagram
-          </span>
-
-          <div
-            class="metric-value"
-            id="instagram"
-          >
-            —
-          </div>
-
-          <span
-            class="metric-comparison neutral"
-            id="comparison-instagram"
-          >
-            —
-          </span>
-
-        </div>
-
-
-        <div class="metric">
-
-          <div class="metric-icon">
-            ⭐
-          </div>
-
-          <span class="metric-label">
-            Google
-          </span>
-
-          <div
-            class="metric-value"
-            id="google"
-          >
-            —
-          </div>
-
-          <span
-            class="metric-comparison neutral"
-            id="comparison-google"
-          >
-            —
-          </span>
-
-        </div>
-
-
-        <div class="metric">
-
-          <div class="metric-icon">
-            📍
-          </div>
-
-          <span class="metric-label">
-            Maps
-          </span>
-
-          <div
-            class="metric-value"
-            id="maps"
-          >
-            —
-          </div>
-
-          <span
-            class="metric-comparison neutral"
-            id="comparison-maps"
-          >
-            —
-          </span>
-
-        </div>
-
-
-        <div class="metric">
-
-          <div class="metric-icon">
-            🌐
-          </div>
-
-          <span class="metric-label">
-            Site
-          </span>
-
-          <div
-            class="metric-value"
-            id="site"
-          >
-            —
-          </div>
-
-          <span
-            class="metric-comparison neutral"
-            id="comparison-site"
-          >
-            —
-          </span>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         INSIGHTS
-    ========================= -->
-
-    <section class="insights-section">
-
-      <div class="insights-card">
-
-
-        <div class="insights-content">
-
-          <p class="insights-label">
-            Insight
-          </p>
-
-
-          <h2
-            class="insights-title"
-            id="insightTitulo"
-          >
-            Analisando seus resultados...
-          </h2>
-
-
-          <p
-            class="insights-text"
-            id="insightTexto"
-          >
-            Estamos analisando as interações dos seus clientes com sua página Toque+.
-          </p>
-
-        </div>
-
-
-        <div class="insights-highlight">
-
-          <span class="interaction-label">
-            Taxa de interação
-          </span>
-
-
-          <strong
-            class="interaction-value"
-            id="taxaInteracao"
-          >
-            —
-          </strong>
-
-
-          <span
-            class="interaction-sub"
-            id="totalInteracoes"
-          >
-            —
-          </span>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         GRÁFICO
-    ========================= -->
-
-    <section class="chart-section">
-
-
-      <div class="chart-header">
-
-
-        <div>
-
-          <p class="eyebrow">
-            Desempenho
-          </p>
-
-
-          <h2 class="section-title">
-            Visualizações
-          </h2>
-
-        </div>
-
-
-        <div class="period-selector">
-
-
-          <button
-            class="period active"
-            data-days="7"
-          >
-            7 dias
-          </button>
-
-
-          <button
-            class="period"
-            data-days="30"
-          >
-            30 dias
-          </button>
-
-
-          <button
-            class="period"
-            data-days="90"
-          >
-            90 dias
-          </button>
-
-
-        </div>
-
-
-      </div>
-
-
-      <div class="chart-card">
-
-
-        <div class="chart-wrapper">
-
-          <canvas
-            id="viewsChart"
-          ></canvas>
-
-        </div>
-
-
-      </div>
-
-
-    </section>
-
-
-    <div id="mensagem"></div>
-
+```
+<!-- =========================
+     TOPO
+========================= -->
+
+<header class="topbar">
+
+  <div class="brand">
+
+    <img
+      src="/logo-toque.png"
+      alt="Toque+"
+    >
+
+    <strong>
+      Toque+
+    </strong>
 
   </div>
 
+  <button
+    class="logout"
+    id="logout"
+  >
+    Sair
+  </button>
+
+</header>
+
+<!-- =========================
+     BOAS-VINDAS
+========================= -->
+
+<section class="welcome">
+
+  <p class="eyebrow">
+    Painel do cliente
+  </p>
+
+  <h1 id="nomeCliente">
+    Carregando...
+  </h1>
+
+  <p
+    class="description"
+    id="descricao"
+  >
+    Buscando seus dados...
+  </p>
+
+</section>
+
+<!-- =========================
+     UNIDADE
+========================= -->
+
+<section class="unit-card">
+
+  <div>
+
+    <span class="unit-label">
+      Unidade Toque+
+    </span>
+
+    <span
+      class="unit-code"
+      id="unidade"
+    >
+      ...
+    </span>
+
+  </div>
+
+  <div class="status">
+
+    <span class="status-dot"></span>
+
+    <span id="statusUnidade">
+      ...
+    </span>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     MÉTRICAS
+========================= -->
+
+<section>
+
+  <h2 class="section-title">
+    Visão geral
+  </h2>
+
+  <div class="metrics">
+
+    <div class="metric">
+
+      <div class="metric-icon">
+        👁️
+      </div>
+
+      <span class="metric-label">
+        Visualizações
+      </span>
+
+      <div
+        class="metric-value"
+        id="views"
+      >
+        —
+      </div>
+
+    </div>
+
+    <div class="metric">
+
+      <div class="metric-icon">
+        💬
+      </div>
+
+      <span class="metric-label">
+        WhatsApp
+      </span>
+
+      <div
+        class="metric-value"
+        id="whatsapp"
+      >
+        —
+      </div>
+
+    </div>
+
+    <div class="metric">
+
+      <div class="metric-icon">
+        📸
+      </div>
+
+      <span class="metric-label">
+        Instagram
+      </span>
+
+      <div
+        class="metric-value"
+        id="instagram"
+      >
+        —
+      </div>
+
+    </div>
+
+    <div class="metric">
+
+      <div class="metric-icon">
+        ⭐
+      </div>
+
+      <span class="metric-label">
+        Google
+      </span>
+
+      <div
+        class="metric-value"
+        id="google"
+      >
+        —
+      </div>
+
+    </div>
+
+    <div class="metric">
+
+      <div class="metric-icon">
+        📍
+      </div>
+
+      <span class="metric-label">
+        Maps
+      </span>
+
+      <div
+        class="metric-value"
+        id="maps"
+      >
+        —
+      </div>
+
+    </div>
+
+    <div class="metric">
+
+      <div class="metric-icon">
+        🌐
+      </div>
+
+      <span class="metric-label">
+        Site
+      </span>
+
+      <div
+        class="metric-value"
+        id="site"
+      >
+        —
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     INSIGHTS
+========================= -->
+
+<section class="insights-section">
+
+  <div class="insights-card">
+
+    <div class="insights-content">
+
+      <p class="insights-label">
+        Insight
+      </p>
+
+      <h2
+        class="insights-title"
+        id="insightTitulo"
+      >
+        Analisando seus resultados...
+      </h2>
+
+      <p
+        class="insights-text"
+        id="insightTexto"
+      >
+        Estamos analisando as interações dos seus clientes com sua página Toque+.
+      </p>
+
+    </div>
+
+    <div class="insights-highlight">
+
+      <span class="interaction-label">
+        Taxa de interação
+      </span>
+
+      <strong
+        class="interaction-value"
+        id="taxaInteracao"
+      >
+        —
+      </strong>
+
+      <span
+        class="interaction-sub"
+        id="totalInteracoes"
+      >
+        —
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     GRÁFICO
+========================= -->
+
+<section class="chart-section">
+
+  <div class="chart-header">
+
+    <div>
+
+      <p class="eyebrow">
+        Desempenho
+      </p>
+
+      <h2 class="section-title">
+        Visualizações
+      </h2>
+
+    </div>
+
+    <div class="period-selector">
+
+      <button
+        class="period active"
+        data-days="7"
+      >
+        7 dias
+      </button>
+
+      <button
+        class="period"
+        data-days="30"
+      >
+        30 dias
+      </button>
+
+      <button
+        class="period"
+        data-days="90"
+      >
+        90 dias
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="chart-card">
+
+    <div class="chart-wrapper">
+
+      <canvas
+        id="viewsChart"
+      ></canvas>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div id="mensagem"></div>
+```
+
+  </div>
 
   <script>
-
 
     /* =========================
        SUPABASE
@@ -1517,17 +1301,14 @@
     const SUPABASE_URL =
       'https://snihyrudiyuslimhlkvq.supabase.co';
 
-
     const SUPABASE_KEY =
       'sb_publishable_sebHe5m45BFJGvTnp3N51A_0wveqQLr';
-
 
     const sb =
       window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY
       );
-
 
     /* =========================
        ELEMENTOS
@@ -1538,30 +1319,25 @@
         'nomeCliente'
       );
 
-
     const descricao =
       document.getElementById(
         'descricao'
       );
-
 
     const unidade =
       document.getElementById(
         'unidade'
       );
 
-
     const statusUnidade =
       document.getElementById(
         'statusUnidade'
       );
 
-
     const mensagem =
       document.getElementById(
         'mensagem'
       );
-
 
     const metricElements = {
 
@@ -1597,42 +1373,6 @@
 
     };
 
-
-    const comparisonElements = {
-
-      visualizacao:
-        document.getElementById(
-          'comparison-visualizacao'
-        ),
-
-      whatsapp:
-        document.getElementById(
-          'comparison-whatsapp'
-        ),
-
-      instagram:
-        document.getElementById(
-          'comparison-instagram'
-        ),
-
-      google:
-        document.getElementById(
-          'comparison-google'
-        ),
-
-      maps:
-        document.getElementById(
-          'comparison-maps'
-        ),
-
-      site:
-        document.getElementById(
-          'comparison-site'
-        )
-
-    };
-
-
     /* =========================
        INSIGHTS
     ========================= */
@@ -1642,24 +1382,20 @@
         'insightTitulo'
       );
 
-
     const insightTexto =
       document.getElementById(
         'insightTexto'
       );
-
 
     const taxaInteracao =
       document.getElementById(
         'taxaInteracao'
       );
 
-
     const totalInteracoes =
       document.getElementById(
         'totalInteracoes'
       );
-
 
     /* =========================
        VARIÁVEIS
@@ -1670,9 +1406,6 @@
     let chart = null;
 
     let diasSelecionados = 7;
-
-    let acessosAtual = [];
-
 
     /* =========================
        DATA / HORÁRIO DO BRASIL
@@ -1692,7 +1425,6 @@
         ).formatToParts(
           new Date()
         );
-
 
       const valores = {};
 
@@ -1714,7 +1446,6 @@
 
       }
 
-
       return (
         `${valores.year}-` +
         `${valores.month}-` +
@@ -1722,7 +1453,6 @@
       );
 
     }
-
 
     function criarDataBrasil(
       dataString
@@ -1733,7 +1463,6 @@
       );
 
     }
-
 
     function chaveDataBrasil(
       timestamp
@@ -1753,7 +1482,6 @@
 
     }
 
-
     function inicioPeriodo(
       dias
     ){
@@ -1763,21 +1491,17 @@
           dataBrasilHoje()
         );
 
-
       const inicio =
         new Date(hoje);
-
 
       inicio.setDate(
         inicio.getDate() -
         (dias - 1)
       );
 
-
       return inicio;
 
     }
-
 
     function inicioPeriodoAnterior(
       dias
@@ -1788,23 +1512,19 @@
           dias
         );
 
-
       const inicioAnterior =
         new Date(
           inicioAtual
         );
-
 
       inicioAnterior.setDate(
         inicioAnterior.getDate() -
         dias
       );
 
-
       return inicioAnterior;
 
     }
-
 
     /* =========================
        CARREGAR CLIENTE
@@ -1812,20 +1532,13 @@
 
     async function carregarPainel(){
 
-
       mensagem.textContent =
         'Carregando dados...';
-
-
-      /*
-       * Verifica usuário logado
-       */
 
       const {
         data: { user },
         error: authError
       } = await sb.auth.getUser();
-
 
       if(
         authError ||
@@ -1839,16 +1552,10 @@
 
       }
 
-
       console.log(
         'Usuário autenticado:',
         user.id
       );
-
-
-      /*
-       * Busca cliente vinculado
-       */
 
       const {
         data: cliente,
@@ -1876,7 +1583,6 @@
 
         .maybeSingle();
 
-
       if(clienteError){
 
         console.error(
@@ -1884,14 +1590,12 @@
           clienteError
         );
 
-
         mensagem.textContent =
           'Não foi possível carregar os dados do cliente.';
 
         return;
 
       }
-
 
       if(!cliente){
 
@@ -1902,30 +1606,18 @@
 
       }
 
-
       console.log(
         'Cliente encontrado:',
         cliente
       );
 
-
-      /*
-       * Mostra cliente
-       */
-
       nomeCliente.textContent =
         cliente.nome ||
         'Cliente Toque+';
 
-
       descricao.textContent =
         cliente.descricao ||
         'Sua área exclusiva Toque+.';
-
-
-      /*
-       * Identifica unidade
-       */
 
       const unidadeCliente =
         Array.isArray(
@@ -1936,54 +1628,36 @@
 
         : cliente.unidades;
 
-
       if(!unidadeCliente){
 
         unidade.textContent =
           'Nenhuma';
 
-
         statusUnidade.textContent =
           'Sem unidade';
 
-
         mensagem.textContent =
           'Nenhuma unidade vinculada a este cliente.';
-
 
         return;
 
       }
 
-
-      /*
-       * Guarda unidade
-       */
-
       unidadeAtual =
         unidadeCliente;
-
 
       unidade.textContent =
         unidadeCliente.codigo;
 
-
       statusUnidade.textContent =
         unidadeCliente.status;
 
-
-      /*
-       * Carrega dados
-       */
-
       await atualizarDadosPeriodo();
-
 
       mensagem.textContent =
         'Dados atualizados.';
 
     }
-
 
     /* =========================
        CARREGAR ACESSOS
@@ -1997,23 +1671,10 @@
 
       }
 
-
-      /*
-       * Precisamos buscar desde o
-       * início do período anterior.
-       *
-       * Isso permite comparar:
-       *
-       * período atual
-       * x
-       * período anterior
-       */
-
       const inicio =
         inicioPeriodoAnterior(
           diasSelecionados
         );
-
 
       const {
         data,
@@ -2043,7 +1704,6 @@
           }
         );
 
-
       if(error){
 
         console.error(
@@ -2051,20 +1711,16 @@
           error
         );
 
-
         mensagem.textContent =
           'Não foi possível carregar as métricas.';
-
 
         return null;
 
       }
 
-
       return data || [];
 
     }
-
 
     /* =========================
        CONTAR PERÍODO
@@ -2092,7 +1748,6 @@
 
       };
 
-
       for(
         const acesso
         of acessos || []
@@ -2102,7 +1757,6 @@
           new Date(
             acesso.criado_em
           );
-
 
         if(
           data >= inicio &&
@@ -2121,11 +1775,9 @@
 
       }
 
-
       return contagem;
 
     }
-
 
     /* =========================
        ATUALIZAR DADOS DO PERÍODO
@@ -2136,7 +1788,6 @@
       const acessos =
         await carregarAcessos();
 
-
       if(
         acessos === null
       ){
@@ -2145,26 +1796,18 @@
 
       }
 
-
-      acessosAtual =
-        acessos;
-
-
       const inicioAtual =
         inicioPeriodo(
           diasSelecionados
         );
-
 
       const inicioAnterior =
         inicioPeriodoAnterior(
           diasSelecionados
         );
 
-
       const fimAtual =
         new Date();
-
 
       const contagemAtual =
         contarPeriodo(
@@ -2173,7 +1816,6 @@
           fimAtual
         );
 
-
       const contagemAnterior =
         contarPeriodo(
           acessos,
@@ -2181,10 +1823,9 @@
           inicioAtual
         );
 
-
-      /*
-       * Atualiza cards
-       */
+      /* =========================
+         ATUALIZA CARDS
+      ========================= */
 
       for(
         const tipo
@@ -2198,176 +1839,24 @@
 
       }
 
-
-      /*
-       * Atualiza comparações
-       */
-
-      for(
-        const tipo
-        in comparisonElements
-      ){
-
-        atualizarComparacao(
-          tipo,
-          contagemAtual[tipo],
-          contagemAnterior[tipo]
-        );
-
-      }
-
-
-      /*
-       * Atualiza insights
-       */
+      /* =========================
+         ATUALIZA INSIGHTS
+      ========================= */
 
       atualizarInsights(
         contagemAtual,
         contagemAnterior
       );
 
-
-      /*
-       * Atualiza gráfico
-       */
+      /* =========================
+         ATUALIZA GRÁFICO
+      ========================= */
 
       atualizarGrafico(
         acessos
       );
 
     }
-
-
-    /* =========================
-       COMPARAÇÃO
-    ========================= */
-
-    function atualizarComparacao(
-      tipo,
-      atual,
-      anterior
-    ){
-
-      const elemento =
-        comparisonElements[
-          tipo
-        ];
-
-
-      if(!elemento){
-
-        return;
-
-      }
-
-
-      elemento.className =
-        'metric-comparison neutral';
-
-
-      /*
-       * Sem dados anteriores
-       */
-
-      if(
-        anterior === 0 &&
-        atual === 0
-      ){
-
-        elemento.textContent =
-          '— sem alterações';
-
-        return;
-
-      }
-
-
-      /*
-       * Começou a receber ações
-       */
-
-      if(
-        anterior === 0 &&
-        atual > 0
-      ){
-
-        elemento.className =
-          'metric-comparison positive';
-
-
-        elemento.textContent =
-          '↑ novo período';
-
-
-        return;
-
-      }
-
-
-      /*
-       * Calcula variação
-       */
-
-      const variacao =
-        (
-          (
-            atual -
-            anterior
-          ) /
-          anterior
-        ) * 100;
-
-
-      const valor =
-        Math.abs(
-          variacao
-        )
-          .toFixed(1)
-          .replace(
-            '.',
-            ','
-          );
-
-
-      if(
-        variacao > 0
-      ){
-
-        elemento.className =
-          'metric-comparison positive';
-
-
-        elemento.textContent =
-          `↑ ${valor}% vs. período anterior`;
-
-
-        return;
-
-      }
-
-
-      if(
-        variacao < 0
-      ){
-
-        elemento.className =
-          'metric-comparison negative';
-
-
-        elemento.textContent =
-          `↓ ${valor}% vs. período anterior`;
-
-
-        return;
-
-      }
-
-
-      elemento.textContent =
-        '— igual ao período anterior';
-
-    }
-
 
     /* =========================
        CALCULAR INSIGHTS
@@ -2381,7 +1870,6 @@
       const visualizacoes =
         contagem.visualizacao;
 
-
       const interacoes =
         contagem.whatsapp +
         contagem.instagram +
@@ -2389,21 +1877,10 @@
         contagem.maps +
         contagem.site;
 
-
       const visualizacoesAnterior =
         anterior.visualizacao;
 
-
-      const interacoesAnterior =
-        anterior.whatsapp +
-        anterior.instagram +
-        anterior.google +
-        anterior.maps +
-        anterior.site;
-
-
       let taxa = 0;
-
 
       if(
         visualizacoes > 0
@@ -2417,7 +1894,6 @@
 
       }
 
-
       const taxaFormatada =
         taxa
           .toFixed(1)
@@ -2426,10 +1902,8 @@
             ','
           );
 
-
       taxaInteracao.textContent =
         `${taxaFormatada}%`;
-
 
       totalInteracoes.textContent =
         `${interacoes} ${
@@ -2438,10 +1912,9 @@
             : 'interações'
         } no período`;
 
-
-      /*
-       * Sem visualizações
-       */
+      /* =========================
+         SEM VISUALIZAÇÕES
+      ========================= */
 
       if(
         visualizacoes === 0
@@ -2450,19 +1923,16 @@
         insightTitulo.textContent =
           'Sua página ainda está começando';
 
-
         insightTexto.textContent =
           `Ainda não houve visualizações nos últimos ${diasSelecionados} dias. Assim que seus clientes começarem a acessar sua página, os resultados aparecerão aqui.`;
-
 
         return;
 
       }
 
-
-      /*
-       * Crescimento forte
-       */
+      /* =========================
+         CRESCIMENTO / QUEDA
+      ========================= */
 
       if(
         visualizacoesAnterior > 0
@@ -2477,7 +1947,6 @@
             visualizacoesAnterior
           ) * 100;
 
-
         if(
           crescimento >= 20
         ){
@@ -2490,19 +1959,19 @@
                 ','
               );
 
-
           insightTitulo.textContent =
             'Sua página está crescendo';
 
-
           insightTexto.textContent =
-            `Você teve ${visualizacoes} visualizações nos últimos ${diasSelecionados} dias, um aumento de ${valor}% em relação ao período anterior. ${interacoes > 0 ? `Foram ${interacoes} interações realizadas pelos seus clientes.` : 'Continue divulgando seu Toque+ para transformar esses acessos em interações.'}`;
-
+            `Você teve ${visualizacoes} visualizações nos últimos ${diasSelecionados} dias, um aumento de ${valor}% em relação ao período anterior. ${
+              interacoes > 0
+                ? `Foram ${interacoes} interações realizadas pelos seus clientes.`
+                : 'Continue divulgando seu Toque+ para transformar esses acessos em interações.'
+            }`;
 
           return;
 
         }
-
 
         if(
           crescimento <= -20
@@ -2518,14 +1987,11 @@
                 ','
               );
 
-
           insightTitulo.textContent =
             'Os acessos diminuíram neste período';
 
-
           insightTexto.textContent =
             `Sua página teve ${visualizacoes} visualizações nos últimos ${diasSelecionados} dias, ${valor}% a menos que no período anterior. Continue divulgando seu Toque+ para recuperar o volume de acessos.`;
-
 
           return;
 
@@ -2533,10 +1999,9 @@
 
       }
 
-
-      /*
-       * Muitas interações
-       */
+      /* =========================
+         MUITAS INTERAÇÕES
+      ========================= */
 
       if(
         taxa >= 30
@@ -2545,19 +2010,16 @@
         insightTitulo.textContent =
           'Seus clientes estão interagindo bastante';
 
-
         insightTexto.textContent =
           `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Isso representa uma taxa de interação de ${taxaFormatada}%.`;
-
 
         return;
 
       }
 
-
-      /*
-       * Boa quantidade
-       */
+      /* =========================
+         BOA QUANTIDADE
+      ========================= */
 
       if(
         taxa >= 15
@@ -2566,19 +2028,16 @@
         insightTitulo.textContent =
           'Sua página está gerando boas interações';
 
-
         insightTexto.textContent =
           `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Seus clientes estão encontrando caminhos para entrar em contato ou conhecer melhor seu negócio.`;
-
 
         return;
 
       }
 
-
-      /*
-       * Algumas interações
-       */
+      /* =========================
+         ALGUMAS INTERAÇÕES
+      ========================= */
 
       if(
         taxa > 0
@@ -2587,29 +2046,24 @@
         insightTitulo.textContent =
           'Seus clientes já estão interagindo';
 
-
         insightTexto.textContent =
           `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Continue divulgando seu Toque+ para aumentar as oportunidades de interação.`;
-
 
         return;
 
       }
 
-
-      /*
-       * Sem ações
-       */
+      /* =========================
+         SEM AÇÕES
+      ========================= */
 
       insightTitulo.textContent =
         'Sua página está recebendo acessos';
-
 
       insightTexto.textContent =
         `${visualizacoes} pessoas acessaram sua página nos últimos ${diasSelecionados} dias, mas ainda não realizaram uma ação. Continue divulgando seu Toque+ para aumentar as oportunidades de interação.`;
 
     }
-
 
     /* =========================
        ATUALIZAR GRÁFICO
@@ -2624,15 +2078,9 @@
           diasSelecionados
         );
 
-
       const labels = [];
 
       const valores = [];
-
-
-      /*
-       * Cria cada dia
-       */
 
       for(
         let i = 0;
@@ -2645,20 +2093,14 @@
             inicio
           );
 
-
         dia.setDate(
           dia.getDate() + i
         );
 
-
         const chave =
-          dia
-            .toISOString()
-            .slice(
-              0,
-              10
-            );
-
+          chaveDataBrasil(
+            dia.toISOString()
+          );
 
         const label =
           dia.toLocaleDateString(
@@ -2669,16 +2111,9 @@
             }
           );
 
-
         labels.push(
           label
         );
-
-
-        /*
-         * Conta visualizações
-         * usando horário de Brasília
-         */
 
         const quantidade =
           acessos.filter(
@@ -2693,12 +2128,10 @@
 
               }
 
-
               const dataAcesso =
                 chaveDataBrasil(
                   acesso.criado_em
                 );
-
 
               return (
                 dataAcesso ===
@@ -2708,38 +2141,22 @@
             }
           ).length;
 
-
         valores.push(
           quantidade
         );
 
       }
 
-
-      /*
-       * Canvas
-       */
-
       const canvas =
         document.getElementById(
           'viewsChart'
         );
-
-
-      /*
-       * Remove gráfico anterior
-       */
 
       if(chart){
 
         chart.destroy();
 
       }
-
-
-      /*
-       * Cria gráfico
-       */
 
       chart =
         new Chart(
@@ -2748,11 +2165,9 @@
 
             type:'line',
 
-
             data:{
 
               labels,
-
 
               datasets:[{
 
@@ -2783,13 +2198,11 @@
 
             },
 
-
             options:{
 
               responsive:true,
 
               maintainAspectRatio:false,
-
 
               plugins:{
 
@@ -2799,7 +2212,6 @@
 
               },
 
-
               scales:{
 
                 x:{
@@ -2808,12 +2220,10 @@
                     display:false
                   },
 
-
                   ticks:{
 
                     color:
                       'rgba(255,255,255,.55)',
-
 
                     maxTicksLimit:
                       diasSelecionados <= 7
@@ -2824,22 +2234,18 @@
 
                 },
 
-
                 y:{
 
                   beginAtZero:true,
-
 
                   ticks:{
 
                     precision:0,
 
-
                     color:
                       'rgba(255,255,255,.55)'
 
                   },
-
 
                   grid:{
 
@@ -2859,7 +2265,6 @@
 
     }
 
-
     /* =========================
        SELETOR 7 / 30 / 90
     ========================= */
@@ -2873,17 +2278,10 @@
             'click',
             async () => {
 
-
-              /*
-               * Evita recarregar o
-               * mesmo período
-               */
-
               const novoPeriodo =
                 Number(
                   button.dataset.days
                 );
-
 
               if(
                 novoPeriodo ===
@@ -2893,11 +2291,6 @@
                 return;
 
               }
-
-
-              /*
-               * Remove seleção
-               */
 
               document
                 .querySelectorAll(
@@ -2913,34 +2306,17 @@
                   }
                 );
 
-
-              /*
-               * Ativa botão
-               */
-
               button.classList.add(
                 'active'
               );
 
-
-              /*
-               * Atualiza período
-               */
-
               diasSelecionados =
                 novoPeriodo;
-
-
-              /*
-               * Recarrega tudo
-               */
 
               mensagem.textContent =
                 'Atualizando dados...';
 
-
               await atualizarDadosPeriodo();
-
 
               mensagem.textContent =
                 'Dados atualizados.';
@@ -2950,7 +2326,6 @@
 
         }
       );
-
 
     /* =========================
        LOGOUT
@@ -2962,16 +2337,13 @@
         'click',
         async () => {
 
-
           await sb.auth.signOut();
-
 
           window.location.href =
             '/cliente.html';
 
         }
       );
-
 
     /* =========================
        INICIA PAINEL
@@ -2984,4 +2356,3 @@
 </body>
 
 </html>
-```
