@@ -30,8 +30,11 @@ body{
   position:relative;
 }
 
-/* FUNDO DO SITE
-   Mantém a imagem somente dentro da área mobile */
+
+/* =========================================================
+   FUNDO DO SITE
+   ========================================================= */
+
 .background-image{
   position:absolute;
   top:-40px;
@@ -49,7 +52,12 @@ body{
   transition:opacity .35s ease;
 }
 
-/* FILTRO ESCURO SOBRE TODA A IMAGEM */
+
+/* =========================================================
+   FILTRO SOBRE A IMAGEM
+   Mais claro para deixar o fundo aparecer melhor
+   ========================================================= */
+
 .background-overlay{
   position:absolute;
   top:0;
@@ -58,14 +66,21 @@ body{
   height:100%;
   transform:translateX(-50%);
   z-index:0;
+
   background:linear-gradient(
     180deg,
-    rgba(5,6,10,.60),
-    rgba(5,6,10,.72) 48%,
-    rgba(5,6,10,.86)
+    rgba(5,6,10,.35),
+    rgba(5,6,10,.48) 48%,
+    rgba(5,6,10,.62)
   );
+
   pointer-events:none;
 }
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
 
 .page{
   width:min(100%,430px);
@@ -74,6 +89,11 @@ body{
   position:relative;
   z-index:1;
 }
+
+
+/* =========================================================
+   EFEITOS AMBIENTAIS
+   ========================================================= */
 
 .ambient{
   position:fixed;
@@ -108,6 +128,11 @@ body{
   bottom:-180px;
   opacity:.18;
 }
+
+
+/* =========================================================
+   PERFIL
+   ========================================================= */
 
 .profile{
   text-align:center;
@@ -172,6 +197,11 @@ body{
   line-height:1.55;
 }
 
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
 .links{
   display:grid;
   gap:12px;
@@ -188,16 +218,20 @@ body{
   border-radius:21px;
   color:#fff;
   text-decoration:none;
+
   background:linear-gradient(
     110deg,
     rgba(255,255,255,.16),
     rgba(255,255,255,.055)
   );
+
   backdrop-filter:blur(18px) saturate(145%);
   -webkit-backdrop-filter:blur(18px) saturate(145%);
+
   box-shadow:
     0 12px 30px rgba(0,0,0,.22),
     inset 0 1px 0 rgba(255,255,255,.09);
+
   transition:
     transform .18s ease,
     border-color .18s ease,
@@ -207,6 +241,7 @@ body{
 .link:hover{
   transform:translateY(-2px) scale(1.008);
   border-color:rgba(0,229,255,.35);
+
   box-shadow:
     0 16px 35px rgba(0,0,0,.28),
     0 0 25px rgba(123,97,255,.10);
@@ -225,7 +260,9 @@ body{
   place-items:center;
   background:rgba(255,255,255,.12);
   border:1px solid rgba(255,255,255,.13);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.15);
 }
 
 .icon svg{
@@ -260,6 +297,11 @@ body{
   line-height:1;
 }
 
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
 .footer{
   text-align:center;
   margin-top:28px;
@@ -286,6 +328,11 @@ body{
   color:rgba(255,255,255,.45);
   margin-top:7px;
 }
+
+
+/* =========================================================
+   INTRO TOQUE+
+   ========================================================= */
 
 .intro{
   position:fixed;
@@ -319,15 +366,18 @@ body{
   width:80px;
   height:2px;
   margin:15px auto 0;
+
   background:linear-gradient(
     90deg,
     var(--purple),
     var(--cyan)
   );
+
   box-shadow:0 0 18px rgba(0,229,255,.6);
 }
 
 @keyframes introMark{
+
   from{
     opacity:0;
     transform:scale(.75);
@@ -339,15 +389,23 @@ body{
     transform:scale(1);
     filter:blur(0);
   }
+
 }
 
 @keyframes introOut{
+
   to{
     opacity:0;
     visibility:hidden;
     pointer-events:none;
   }
+
 }
+
+
+/* =========================================================
+   ESTADO VAZIO
+   ========================================================= */
 
 .empty{
   padding:50px 20px;
@@ -362,10 +420,14 @@ body{
 }
 
 
-/* Logo PNG oficial: sem caixa em volta, glow feito por CSS */
+/* =========================================================
+   LOGO PNG OFICIAL
+   ========================================================= */
+
 .brand-logo-image{
   object-fit:contain;
   max-width:none;
+
   filter:
     drop-shadow(0 0 7px rgba(0,229,255,.38))
     drop-shadow(0 0 14px rgba(123,97,255,.28));
@@ -378,7 +440,10 @@ body{
 }
 
 
-/* Botões com a cor de cada rede */
+/* =========================================================
+   CORES DOS BOTÕES
+   ========================================================= */
+
 .link-whatsapp{
   --tint:37,211,102;
 }
@@ -405,11 +470,13 @@ body{
     rgba(var(--tint),.20),
     rgba(255,255,255,.05) 62%
   );
+
   border-color:rgba(var(--tint),.28);
 }
 
 .link:hover{
   border-color:rgba(var(--tint),.55);
+
   box-shadow:
     0 16px 35px rgba(0,0,0,.28),
     0 0 26px rgba(var(--tint),.22);
@@ -418,10 +485,16 @@ body{
 .link .icon{
   color:#fff;
   border:0;
+
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.28),
     0 6px 16px rgba(var(--tint),.35);
 }
+
+
+/* =========================================================
+   ÍCONES
+   ========================================================= */
 
 .link-whatsapp .icon{
   background:linear-gradient(
@@ -466,6 +539,11 @@ body{
   );
 }
 
+
+/* =========================================================
+   EFEITO DE CLIQUE
+   ========================================================= */
+
 .link:active{
   transform:scale(1.02);
 }
@@ -475,6 +553,7 @@ body{
 }
 
 @keyframes linkBurst{
+
   0%{
     transform:scale(1);
     box-shadow:0 0 0 0 rgba(var(--tint),.55);
@@ -482,6 +561,7 @@ body{
 
   40%{
     transform:scale(1.045);
+
     box-shadow:
       0 0 0 10px rgba(var(--tint),0),
       0 0 34px rgba(var(--tint),.45);
@@ -491,15 +571,44 @@ body{
     transform:scale(1);
     box-shadow:0 12px 30px rgba(0,0,0,.22);
   }
+
 }
 
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+   ========================================================= */
+
 @media(prefers-reduced-motion:reduce){
+
   .link.burst{
     animation:none;
   }
+
 }
 
+
+/* =========================================================
+   DESKTOP
+   Fundo ocupa a tela inteira, conteúdo continua mobile
+   ========================================================= */
+
 @media(min-width:700px){
+
+  .background-image{
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    transform:scale(1.03);
+  }
+
+  .background-overlay{
+    width:100%;
+    height:100%;
+    left:0;
+    transform:none;
+  }
 
   .page{
     padding-top:48px;
