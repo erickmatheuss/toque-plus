@@ -139,17 +139,29 @@
               </span>
 
 
-              <span class="copy">
+            <span class="copy">
 
-                <span class="title">
-                  ${title}
-                </span>
+              <span class="title">
+                ${title}
+            </span>
 
-                <span class="subtitle">
-                  ${sub}
-                </span>
+            ${
+                type === 'google'
+                  ?
+    `
+            <span class="subtitle">
+            ${sub} ★★★★★
+            </span>
+    `
+    :
+    `
+      <span class="subtitle">
+        ${sub}
+      </span>
+    `
+  }
 
-              </span>
+</span>
 
 
               <span class="arrow">
