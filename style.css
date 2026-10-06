@@ -1,4 +1,3 @@
-```css
 :root{
   --bg:#0A0B10;
   --panel:rgba(18,20,31,.48);
@@ -59,6 +58,11 @@ body{
   pointer-events:none;
 }
 
+
+/* =========================================================
+   FILTRO ESCURO
+   ========================================================= */
+
 .background-overlay{
   position:fixed;
   inset:0;
@@ -76,7 +80,7 @@ body{
 
 
 /* =========================================================
-   CONTEÚDO
+   CONTEÚDO MOBILE
    ========================================================= */
 
 .page{
@@ -95,7 +99,7 @@ body{
 
 
 /* =========================================================
-   AMBIENTE
+   EFEITOS AMBIENTAIS
    ========================================================= */
 
 .ambient{
@@ -224,9 +228,20 @@ body{
   gap:12px;
 }
 
+
+/*
+  IMPORTANTE:
+  Os botões começam invisíveis.
+  Assim não existe aquela piscada antes da animação.
+*/
+
 .links .link{
   opacity:0;
-  transform:translateY(30px) scale(.94);
+
+  transform:
+    translateY(30px)
+    scale(.94);
+
   filter:blur(8px);
 }
 
@@ -335,320 +350,6 @@ body{
   font-size:22px;
   color:rgba(255,255,255,.8);
   line-height:1;
-}
-
-
-/* =========================================================
-   GOOGLE / AVALIAÇÃO
-   ========================================================= */
-
-.link-google{
-  background:
-    linear-gradient(
-      110deg,
-      rgba(66,133,244,.28),
-      rgba(123,97,255,.14) 58%,
-      rgba(255,255,255,.055)
-    );
-
-  border-color:rgba(66,133,244,.42);
-
-  box-shadow:
-    0 14px 34px rgba(0,0,0,.25),
-    0 0 26px rgba(66,133,244,.12),
-    inset 0 1px 0 rgba(255,255,255,.12);
-}
-
-.link-google:hover{
-  border-color:rgba(66,133,244,.70);
-
-  box-shadow:
-    0 18px 38px rgba(0,0,0,.30),
-    0 0 34px rgba(66,133,244,.24);
-}
-
-
-/* =========================================================
-   LOGO GOOGLE
-   ========================================================= */
-
-.link-google .icon{
-  background:#fff;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.8),
-    0 6px 18px rgba(0,0,0,.20);
-}
-
-.google-logo{
-  width:27px;
-  height:27px;
-
-  display:grid;
-  place-items:center;
-}
-
-.google-g{
-  font-family:Arial,Helvetica,sans-serif;
-
-  font-size:25px;
-  line-height:27px;
-
-  font-weight:700;
-
-  background:
-    conic-gradient(
-      from -45deg,
-      #4285F4 0deg 90deg,
-      #34A853 90deg 180deg,
-      #FBBC05 180deg 270deg,
-      #EA4335 270deg 360deg
-    );
-
-  -webkit-background-clip:text;
-  background-clip:text;
-
-  color:transparent;
-}
-
-
-/* =========================================================
-   TEXTO + ESTRELAS
-   ========================================================= */
-
-.review-line{
-  display:flex;
-  align-items:center;
-
-  gap:9px;
-
-  margin-top:4px;
-
-  min-width:0;
-}
-
-.review-line .subtitle{
-  margin-top:0;
-}
-
-.rating-stars{
-  display:flex;
-  align-items:center;
-
-  gap:1px;
-
-  flex-shrink:0;
-
-  font-size:10px;
-  line-height:1;
-
-  color:#FFD84D;
-
-  filter:
-    drop-shadow(0 0 3px rgba(255,216,77,.35));
-}
-
-.rating-stars span{
-  display:inline-block;
-
-  opacity:0;
-
-  transform:
-    scale(.25)
-    rotate(-18deg);
-
-  filter:blur(3px);
-
-  transform-origin:center;
-}
-
-
-/*
-   As estrelas começam depois que o botão
-   já apareceu na tela.
-*/
-
-.page.page-ready .link-google .rating-stars span{
-  animation:
-    reviewStarEntrance
-    .52s
-    cubic-bezier(.2,.9,.3,1.25)
-    both;
-}
-
-.page.page-ready .link-google .rating-stars span:nth-child(1){
-  animation-delay:420ms;
-}
-
-.page.page-ready .link-google .rating-stars span:nth-child(2){
-  animation-delay:500ms;
-}
-
-.page.page-ready .link-google .rating-stars span:nth-child(3){
-  animation-delay:580ms;
-}
-
-.page.page-ready .link-google .rating-stars span:nth-child(4){
-  animation-delay:660ms;
-}
-
-.page.page-ready .link-google .rating-stars span:nth-child(5){
-  animation-delay:740ms;
-}
-
-@keyframes reviewStarEntrance{
-
-  0%{
-    opacity:0;
-
-    transform:
-      scale(.25)
-      rotate(-18deg);
-
-    filter:blur(3px);
-  }
-
-  55%{
-    opacity:1;
-
-    transform:
-      scale(1.45)
-      rotate(5deg);
-
-    filter:
-      blur(0)
-      drop-shadow(0 0 8px rgba(255,216,77,.75));
-  }
-
-  100%{
-    opacity:1;
-
-    transform:
-      scale(1)
-      rotate(0);
-
-    filter:
-      blur(0)
-      drop-shadow(0 0 3px rgba(255,216,77,.35));
-  }
-
-}
-
-
-/* =========================================================
-   OUTROS BOTÕES
-   ========================================================= */
-
-.link-whatsapp{
-  background:linear-gradient(
-    110deg,
-    rgba(37,211,102,.20),
-    rgba(255,255,255,.05) 62%
-  );
-
-  border-color:rgba(37,211,102,.28);
-}
-
-.link-instagram{
-  background:linear-gradient(
-    110deg,
-    rgba(214,41,118,.20),
-    rgba(255,255,255,.05) 62%
-  );
-
-  border-color:rgba(214,41,118,.28);
-}
-
-.link-maps{
-  background:linear-gradient(
-    110deg,
-    rgba(234,67,53,.20),
-    rgba(255,255,255,.05) 62%
-  );
-
-  border-color:rgba(234,67,53,.28);
-}
-
-.link-site{
-  background:linear-gradient(
-    110deg,
-    rgba(0,229,255,.20),
-    rgba(255,255,255,.05) 62%
-  );
-
-  border-color:rgba(0,229,255,.28);
-}
-
-.link-whatsapp:hover{
-  border-color:rgba(37,211,102,.55);
-
-  box-shadow:
-    0 16px 35px rgba(0,0,0,.28),
-    0 0 26px rgba(37,211,102,.22);
-}
-
-.link-instagram:hover{
-  border-color:rgba(214,41,118,.55);
-
-  box-shadow:
-    0 16px 35px rgba(0,0,0,.28),
-    0 0 26px rgba(214,41,118,.22);
-}
-
-.link-maps:hover{
-  border-color:rgba(234,67,53,.55);
-
-  box-shadow:
-    0 16px 35px rgba(0,0,0,.28),
-    0 0 26px rgba(234,67,53,.22);
-}
-
-.link-site:hover{
-  border-color:rgba(0,229,255,.55);
-
-  box-shadow:
-    0 16px 35px rgba(0,0,0,.28),
-    0 0 26px rgba(0,229,255,.22);
-}
-
-
-/* =========================================================
-   ÍCONES
-   ========================================================= */
-
-.link-whatsapp .icon{
-  background:linear-gradient(
-    145deg,
-    #3DEB7F,
-    #128C7E
-  );
-}
-
-.link-instagram .icon{
-  background:linear-gradient(
-    45deg,
-    #FEDA75 0%,
-    #FA7E1E 28%,
-    #D62976 55%,
-    #962FBF 78%,
-    #4F5BD5 100%
-  );
-}
-
-.link-maps .icon{
-  background:linear-gradient(
-    145deg,
-    #FF6A5C,
-    #C5221F
-  );
-}
-
-.link-site .icon{
-  background:linear-gradient(
-    145deg,
-    #7B61FF,
-    #00BFE8
-  );
 }
 
 
@@ -802,7 +503,7 @@ body{
 
 
 /* =========================================================
-   LOGO TOQUE+
+   LOGO PNG OFICIAL
    ========================================================= */
 
 .brand-logo-image{
@@ -823,7 +524,108 @@ body{
 
 
 /* =========================================================
-   CLIQUE
+   CORES DOS BOTÕES
+   ========================================================= */
+
+.link-whatsapp{
+  --tint:37,211,102;
+}
+
+.link-instagram{
+  --tint:214,41,118;
+}
+
+.link-google{
+  --tint:66,133,244;
+}
+
+.link-maps{
+  --tint:234,67,53;
+}
+
+.link-site{
+  --tint:0,229,255;
+}
+
+.link{
+  background:linear-gradient(
+    110deg,
+    rgba(var(--tint),.20),
+    rgba(255,255,255,.05) 62%
+  );
+
+  border-color:rgba(var(--tint),.28);
+}
+
+.link:hover{
+  border-color:rgba(var(--tint),.55);
+
+  box-shadow:
+    0 16px 35px rgba(0,0,0,.28),
+    0 0 26px rgba(var(--tint),.22);
+}
+
+.link .icon{
+  color:#fff;
+
+  border:0;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.28),
+    0 6px 16px rgba(var(--tint),.35);
+}
+
+
+/* =========================================================
+   ÍCONES
+   ========================================================= */
+
+.link-whatsapp .icon{
+  background:linear-gradient(
+    145deg,
+    #3DEB7F,
+    #128C7E
+  );
+}
+
+.link-instagram .icon{
+  background:linear-gradient(
+    45deg,
+    #FEDA75 0%,
+    #FA7E1E 28%,
+    #D62976 55%,
+    #962FBF 78%,
+    #4F5BD5 100%
+  );
+}
+
+.link-google .icon{
+  background:linear-gradient(
+    145deg,
+    #5B9BFF,
+    #2F5FD0
+  );
+}
+
+.link-maps .icon{
+  background:linear-gradient(
+    145deg,
+    #FF6A5C,
+    #C5221F
+  );
+}
+
+.link-site .icon{
+  background:linear-gradient(
+    145deg,
+    #7B61FF,
+    #00BFE8
+  );
+}
+
+
+/* =========================================================
+   EFEITO DE CLIQUE
    ========================================================= */
 
 .link:active{
@@ -870,6 +672,11 @@ body{
 
 @media(min-width:700px){
 
+  /*
+    O conteúdo continua exatamente no formato mobile.
+    Apenas o fundo ocupa toda a tela.
+  */
+
   .page{
     width:100%;
     max-width:430px;
@@ -892,15 +699,29 @@ body{
    ANIMAÇÃO DA PÁGINA
    ========================================================= */
 
+/*
+  A classe page-ready só é adicionada quando
+  a intro termina.
+*/
+
 .page.page-ready .profile{
+
   animation:
     profileEntrance
     .75s
     cubic-bezier(.2,.8,.2,1)
     both;
+
 }
 
+
+/*
+  Os botões começam somente depois da intro.
+  Cada um espera um pouco mais que o anterior.
+*/
+
 .page.page-ready .links.animate-in .link{
+
   animation:
     buttonEntrance
     .85s
@@ -909,20 +730,28 @@ body{
 
   animation-delay:
     calc(var(--link-index) * 130ms);
+
 }
 
+
+/*
+  Rodapé aparece depois da sequência dos botões.
+*/
+
 .page.page-ready .links.animate-in ~ .footer{
+
   animation:
     footerEntrance
     .7s
     cubic-bezier(.2,.8,.2,1)
     750ms
     both;
+
 }
 
 
 /* =========================================================
-   PERFIL
+   ANIMAÇÃO DO PERFIL
    ========================================================= */
 
 @keyframes profileEntrance{
@@ -951,7 +780,7 @@ body{
 
 
 /* =========================================================
-   BOTÕES
+   ANIMAÇÃO DOS BOTÕES
    ========================================================= */
 
 @keyframes buttonEntrance{
@@ -990,7 +819,7 @@ body{
 
 
 /* =========================================================
-   FOOTER
+   ANIMAÇÃO DO RODAPÉ
    ========================================================= */
 
 @keyframes footerEntrance{
@@ -1045,12 +874,4 @@ body{
     animation:none;
   }
 
-  .rating-stars span{
-    opacity:1;
-    transform:none;
-    filter:none;
-    animation:none !important;
-  }
-
 }
-```
