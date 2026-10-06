@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Toque+ | Área do cliente</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:#0A0B10;
+      color:#fff;
+      font-family:Arial,sans-serif;
+    }
+
+    .login{
+      width:100%;
+      max-width:400px;
+      padding:32px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;
+      background:rgba(18,20,31,.65);
+      box-shadow:0 20px 60px rgba(0,0,0,.4);
+      backdrop-filter:blur(20px);
+    }
+
+    .logo{
+      display:block;
+      width:58px;
+      height:58px;
+      object-fit:contain;
+      margin:0 auto 24px;
+    }
+
+    h1{
+      margin:0;
+      text-align:center;
+      font-size:26px;
+    }
+
+    .subtitle{
+      margin:8px 0 28px;
+      text-align:center;
+      color:rgba(255,255,255,.65);
+      font-size:14px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:8px;
+      font-size:14px;
+      color:rgba(255,255,255,.8);
+    }
+
+    input{
+      width:100%;
+      padding:14px 15px;
+      margin-bottom:18px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:13px;
+      outline:none;
+      background:rgba(255,255,255,.05);
+      color:#fff;
+      font-size:15px;
+    }
+
+    input:focus{
+      border-color:#7B61FF;
+      box-shadow:0 0 0 3px rgba(123,97,255,.12);
+    }
+
+    button{
+      width:100%;
+      border:0;
+      border-radius:13px;
+      padding:15px;
+      background:linear-gradient(135deg,#7B61FF,#00E5FF);
+      color:#fff;
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+    }
+
+    button:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+    }
+
+    #mensagem{
+      min-height:20px;
+      margin-top:16px;
+      text-align:center;
+      font-size:14px;
+      color:rgba(255,255,255,.7);
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="login">
+
+    <img
+      class="logo"
+      src="/logo-toque.png"
+      alt="Toque+"
+    >
+
+    <h1>Área do cliente</h1>
+
+    <p class="subtitle">
+      Acesse seu painel Toque+
+    </p>
+
+    <form id="loginForm">
+
+      <label for="email">E-mail</label>
+
+      <input
+        id="email"
+        type="email"
+        placeholder="seu@email.com"
+        required
+      >
+
+      <label for="senha">Senha</label>
+
+      <input
+        id="senha"
+        type="password"
+        placeholder="Sua senha"
+        required
+      >
+
+      <button id="entrar" type="submit">
+        Entrar
+      </button>
+
+    </form>
+
+    <div id="mensagem"></div>
+
+  </main>
+
+  <script>
+    const SUPABASE_URL = 'https://snihyrudiyuslimhlkvq.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_sebHe5m45BFJGvTnp3N51A_0wveqQLr';
+
+    const sb = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const form = document.getElementById('loginForm');
+    const mensagem = document.getElementById('mensagem');
+    const botao = document.getElementById('entrar');
+
+    form.addEventListener('submit', async (event) => {
+
+      event.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const senha = document.getElementById('senha').value;
+
+      mensagem.textContent = 'Entrando...';
+      botao.disabled = true;
+
+      const { data, error } = await sb.auth.signInWithPassword({
+        email,
+        password: senha
+      });
+
+      if(error){
+        console.error(error);
+        mensagem.textContent = 'E-mail ou senha incorretos.';
+        botao.disabled = false;
+        return;
+      }
+
+      console.log('Usuário autenticado:', data.user);
+
+      mensagem.textContent = 'Login realizado!';
+
+      setTimeout(() => {
+        window.location.href = '/cliente-dashboard.html';
+      }, 500);
+
+    });
+  </script>
+
+</body>
+</html>
