@@ -22,7 +22,7 @@ html{
 
 body{
   margin:0;
-  min-height:100%;
+  min-height:100vh;
   font-family:Montserrat,system-ui,sans-serif;
   background:var(--bg);
   color:var(--text);
@@ -32,39 +32,40 @@ body{
 
 
 /* =========================================================
-   FUNDO DO SITE
+   FUNDO
    ========================================================= */
 
 .background-image{
-  position:absolute;
-  top:-40px;
-  left:50%;
-  width:min(100%,430px);
-  height:calc(100% + 80px);
+  position:fixed;
+  inset:-40px;
   z-index:0;
+
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
-  filter:blur(var(--bg-blur)) saturate(115%);
-  transform:translateX(-50%) scale(1.06);
+
+  filter:
+    blur(var(--bg-blur))
+    saturate(115%);
+
+  transform:scale(1.06);
   transform-origin:center center;
+
   opacity:0;
+
   transition:opacity .35s ease;
+
+  pointer-events:none;
 }
 
 
 /* =========================================================
-   FILTRO SOBRE A IMAGEM
-   Mais claro para deixar o fundo aparecer melhor
+   FILTRO ESCURO
    ========================================================= */
 
 .background-overlay{
-  position:absolute;
-  top:0;
-  left:50%;
-  width:min(100%,430px);
-  height:100%;
-  transform:translateX(-50%);
+  position:fixed;
+  inset:0;
   z-index:0;
 
   background:linear-gradient(
@@ -79,13 +80,19 @@ body{
 
 
 /* =========================================================
-   CONTEÚDO
+   CONTEÚDO MOBILE
    ========================================================= */
 
 .page{
-  width:min(100%,430px);
+  width:100%;
+  max-width:430px;
+
+  min-height:100vh;
+
   margin:0 auto;
+
   padding:32px 16px 28px;
+
   position:relative;
   z-index:1;
 }
@@ -101,6 +108,7 @@ body{
   filter:blur(70px);
   pointer-events:none;
   opacity:.38;
+  z-index:0;
 }
 
 .ambient-a{
@@ -146,11 +154,13 @@ body{
   inset:-30px -12px -16px;
   z-index:-1;
   border-radius:40px;
+
   background:radial-gradient(
     circle at 50% 25%,
     rgba(0,229,255,.10),
     transparent 55%
   );
+
   filter:blur(18px);
   pointer-events:none;
 }
@@ -159,13 +169,18 @@ body{
   width:92px;
   height:92px;
   margin:0 auto 14px;
+
   border-radius:50%;
+
   display:grid;
   place-items:center;
+
   background:rgba(255,255,255,.92);
+
   box-shadow:
     0 0 0 1px rgba(255,255,255,.22),
     0 0 38px rgba(0,229,255,.15);
+
   overflow:hidden;
 }
 
@@ -192,7 +207,9 @@ body{
 .description{
   max-width:440px;
   margin:8px auto 0;
+
   color:var(--muted);
+
   font-size:13px;
   line-height:1.55;
 }
@@ -209,13 +226,19 @@ body{
 
 .link{
   position:relative;
+
   display:flex;
   align-items:center;
+
   gap:13px;
+
   min-height:68px;
+
   padding:11px 14px;
+
   border:1px solid var(--line);
   border-radius:21px;
+
   color:#fff;
   text-decoration:none;
 
@@ -240,6 +263,7 @@ body{
 
 .link:hover{
   transform:translateY(-2px) scale(1.008);
+
   border-color:rgba(0,229,255,.35);
 
   box-shadow:
@@ -254,11 +278,16 @@ body{
 .icon{
   width:43px;
   height:43px;
+
   flex:0 0 43px;
+
   border-radius:14px;
+
   display:grid;
   place-items:center;
+
   background:rgba(255,255,255,.12);
+
   border:1px solid rgba(255,255,255,.13);
 
   box-shadow:
@@ -277,15 +306,20 @@ body{
 
 .title{
   display:block;
+
   font-size:14px;
   font-weight:600;
 }
 
 .subtitle{
   display:block;
+
   font-size:11px;
+
   color:rgba(255,255,255,.66);
+
   margin-top:4px;
+
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -304,6 +338,7 @@ body{
 
 .footer{
   text-align:center;
+
   margin-top:28px;
   padding-top:8px;
 }
@@ -311,7 +346,9 @@ body{
 .brand{
   display:inline-flex;
   align-items:center;
+
   gap:7px;
+
   font-size:13px;
   letter-spacing:3px;
   font-weight:500;
@@ -325,7 +362,9 @@ body{
 
 .tagline{
   font-size:9px;
+
   color:rgba(255,255,255,.45);
+
   margin-top:7px;
 }
 
@@ -337,34 +376,48 @@ body{
 .intro{
   position:fixed;
   inset:0;
+
   z-index:20;
+
   display:grid;
   place-items:center;
+
   background:#05060a;
+
   animation:introOut .5s ease 1.05s forwards;
 }
 
 .intro-inner{
   text-align:center;
-  animation:introMark .7s cubic-bezier(.2,.8,.2,1) both;
+
+  animation:
+    introMark
+    .7s
+    cubic-bezier(.2,.8,.2,1)
+    both;
 }
 
 .intro-inner .brand-mark{
   width:auto;
   height:120px;
+
   margin:0 auto;
 }
 
 .intro-word{
   margin-top:10px;
+
   font-size:14px;
+
   letter-spacing:4px;
+
   font-weight:500;
 }
 
 .intro-line{
   width:80px;
   height:2px;
+
   margin:15px auto 0;
 
   background:linear-gradient(
@@ -373,7 +426,8 @@ body{
     var(--cyan)
   );
 
-  box-shadow:0 0 18px rgba(0,229,255,.6);
+  box-shadow:
+    0 0 18px rgba(0,229,255,.6);
 }
 
 @keyframes introMark{
@@ -409,13 +463,17 @@ body{
 
 .empty{
   padding:50px 20px;
+
   text-align:center;
+
   color:var(--muted);
 }
 
 .empty strong{
   color:#fff;
+
   display:block;
+
   margin-bottom:8px;
 }
 
@@ -426,6 +484,7 @@ body{
 
 .brand-logo-image{
   object-fit:contain;
+
   max-width:none;
 
   filter:
@@ -484,6 +543,7 @@ body{
 
 .link .icon{
   color:#fff;
+
   border:0;
 
   box-shadow:
@@ -549,14 +609,19 @@ body{
 }
 
 .link.burst{
-  animation:linkBurst .42s cubic-bezier(.2,.9,.3,1.2);
+  animation:
+    linkBurst
+    .42s
+    cubic-bezier(.2,.9,.3,1.2);
 }
 
 @keyframes linkBurst{
 
   0%{
     transform:scale(1);
-    box-shadow:0 0 0 0 rgba(var(--tint),.55);
+
+    box-shadow:
+      0 0 0 0 rgba(var(--tint),.55);
   }
 
   40%{
@@ -569,7 +634,9 @@ body{
 
   100%{
     transform:scale(1);
-    box-shadow:0 12px 30px rgba(0,0,0,.22);
+
+    box-shadow:
+      0 12px 30px rgba(0,0,0,.22);
   }
 
 }
@@ -590,27 +657,23 @@ body{
 
 /* =========================================================
    DESKTOP
-   Fundo ocupa a tela inteira, conteúdo continua mobile
    ========================================================= */
 
 @media(min-width:700px){
 
-  .background-image{
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    transform:scale(1.03);
-  }
-
-  .background-overlay{
-    width:100%;
-    height:100%;
-    left:0;
-    transform:none;
-  }
+  /*
+    O conteúdo continua exatamente no formato mobile.
+    Apenas o fundo ocupa toda a tela.
+  */
 
   .page{
+    width:100%;
+    max-width:430px;
+
+    min-height:100vh;
+
+    margin:0 auto;
+
     padding-top:48px;
   }
 
