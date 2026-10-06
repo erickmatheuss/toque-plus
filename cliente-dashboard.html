@@ -1,4 +1,3 @@
-</html>
 <!DOCTYPE html>
 
 <html lang="pt-BR">
@@ -7,11 +6,10 @@
 
   <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Toque+ | Painel do cliente</title>
 
@@ -817,6 +815,307 @@ content="width=device-width, initial-scale=1.0"
     }
 
     /* =========================
+       AÇÃO MAIS REALIZADA
+    ========================= */
+
+    .actions-section{
+
+      margin-top:24px;
+
+    }
+
+    .actions-card{
+
+      position:relative;
+
+      overflow:hidden;
+
+      padding:24px;
+
+      border:1px solid rgba(123,97,255,.24);
+
+      border-radius:20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(123,97,255,.10),
+          rgba(0,229,255,.04)
+        ),
+        var(--panel);
+
+      backdrop-filter:blur(20px);
+
+    }
+
+    .actions-card::before{
+
+      content:"";
+
+      position:absolute;
+
+      width:190px;
+
+      height:190px;
+
+      right:-80px;
+
+      top:-95px;
+
+      border-radius:50%;
+
+      background:
+        rgba(123,97,255,.12);
+
+      filter:blur(38px);
+
+    }
+
+    .actions-header{
+
+      position:relative;
+
+      z-index:1;
+
+      display:flex;
+
+      align-items:flex-start;
+
+      justify-content:space-between;
+
+      gap:20px;
+
+      margin-bottom:22px;
+
+    }
+
+    .actions-label{
+
+      margin:0 0 7px;
+
+      color:var(--cyan);
+
+      font-size:12px;
+
+      font-weight:700;
+
+      letter-spacing:.10em;
+
+      text-transform:uppercase;
+
+    }
+
+    .actions-title{
+
+      margin:0;
+
+      font-size:21px;
+
+      line-height:1.2;
+
+    }
+
+    .actions-description{
+
+      margin:7px 0 0;
+
+      color:var(--muted);
+
+      font-size:13px;
+
+      line-height:1.45;
+
+    }
+
+    .actions-best{
+
+      flex-shrink:0;
+
+      text-align:right;
+
+    }
+
+    .actions-best-label{
+
+      display:block;
+
+      color:var(--muted);
+
+      font-size:12px;
+
+      margin-bottom:5px;
+
+    }
+
+    .actions-best-value{
+
+      display:block;
+
+      font-size:25px;
+
+      font-weight:700;
+
+      line-height:1.1;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff,
+          #9ff6ff
+        );
+
+      -webkit-background-clip:text;
+
+      background-clip:text;
+
+      color:transparent;
+
+    }
+
+    .actions-best-count{
+
+      display:block;
+
+      margin-top:5px;
+
+      color:var(--muted);
+
+      font-size:12px;
+
+    }
+
+    .actions-list{
+
+      position:relative;
+
+      z-index:1;
+
+      display:flex;
+
+      flex-direction:column;
+
+      gap:13px;
+
+    }
+
+    .action-row{
+
+      display:grid;
+
+      grid-template-columns:145px 1fr 105px;
+
+      align-items:center;
+
+      gap:14px;
+
+    }
+
+    .action-name{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:9px;
+
+      color:#fff;
+
+      font-size:13px;
+
+      font-weight:600;
+
+    }
+
+    .action-dot{
+
+      width:8px;
+
+      height:8px;
+
+      flex-shrink:0;
+
+      border-radius:50%;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 0 10px rgba(0,229,255,.25);
+
+    }
+
+    .action-bar{
+
+      height:9px;
+
+      overflow:hidden;
+
+      border-radius:999px;
+
+      background:rgba(255,255,255,.07);
+
+    }
+
+    .action-bar-fill{
+
+      height:100%;
+
+      min-width:4px;
+
+      border-radius:999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--purple),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 0 12px rgba(123,97,255,.25);
+
+      transition:
+        width .45s ease;
+
+    }
+
+    .action-count{
+
+      color:var(--muted);
+
+      font-size:12px;
+
+      text-align:right;
+
+    }
+
+    .actions-empty{
+
+      position:relative;
+
+      z-index:1;
+
+      padding:16px;
+
+      border-radius:13px;
+
+      background:rgba(255,255,255,.035);
+
+      border:1px solid rgba(255,255,255,.07);
+
+      color:var(--muted);
+
+      font-size:13px;
+
+      line-height:1.5;
+
+    }
+
+    /* =========================
        GRÁFICO
     ========================= */
 
@@ -1051,6 +1350,38 @@ content="width=device-width, initial-scale=1.0"
 
       }
 
+      .actions-card{
+
+        padding:20px;
+
+      }
+
+      .actions-header{
+
+        gap:14px;
+
+      }
+
+      .actions-title{
+
+        font-size:19px;
+
+      }
+
+      .actions-best-value{
+
+        font-size:22px;
+
+      }
+
+      .action-row{
+
+        grid-template-columns:125px 1fr 85px;
+
+        gap:10px;
+
+      }
+
       h1{
 
         font-size:27px;
@@ -1238,6 +1569,56 @@ content="width=device-width, initial-scale=1.0"
 
       }
 
+      .actions-card{
+
+        padding:17px;
+
+        border-radius:17px;
+
+      }
+
+      .actions-header{
+
+        flex-direction:column;
+
+        gap:15px;
+
+      }
+
+      .actions-best{
+
+        text-align:left;
+
+      }
+
+      .actions-best-value{
+
+        font-size:25px;
+
+      }
+
+      .action-row{
+
+        grid-template-columns:95px 1fr 65px;
+
+        gap:8px;
+
+      }
+
+      .action-name{
+
+        font-size:11px;
+
+        gap:7px;
+
+      }
+
+      .action-count{
+
+        font-size:10px;
+
+      }
+
       .chart-header{
 
         align-items:flex-start;
@@ -1281,7 +1662,6 @@ content="width=device-width, initial-scale=1.0"
 <body>
 
   <div class="container">
-
 
 <!-- =========================
      TOPO
@@ -1615,6 +1995,74 @@ content="width=device-width, initial-scale=1.0"
 </section>
 
 <!-- =========================
+     AÇÃO MAIS REALIZADA
+========================= -->
+
+<section class="actions-section">
+
+  <div class="actions-card">
+
+    <div class="actions-header">
+
+      <div>
+
+        <p class="actions-label">
+          Interações
+        </p>
+
+        <h2 class="actions-title">
+          Ação mais realizada
+        </h2>
+
+        <p
+          class="actions-description"
+          id="actionsDescription"
+        >
+          Analisando quais canais seus clientes mais utilizam.
+        </p>
+
+      </div>
+
+      <div class="actions-best">
+
+        <span class="actions-best-label">
+          Mais realizada
+        </span>
+
+        <strong
+          class="actions-best-value"
+          id="actionsBest"
+        >
+          —
+        </strong>
+
+        <span
+          class="actions-best-count"
+          id="actionsBestCount"
+        >
+          —
+        </span>
+
+      </div>
+
+    </div>
+
+    <div
+      class="actions-list"
+      id="actionsList"
+    >
+
+      <div class="actions-empty">
+        Analisando suas interações...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
      GRÁFICO
 ========================= -->
 
@@ -1676,7 +2124,6 @@ content="width=device-width, initial-scale=1.0"
 </section>
 
 <div id="mensagem"></div>
-
 
   </div>
 
@@ -1802,6 +2249,30 @@ content="width=device-width, initial-scale=1.0"
     const hoursDescription =
       document.getElementById(
         'hoursDescription'
+      );
+
+    /* =========================
+       AÇÕES
+    ========================= */
+
+    const actionsList =
+      document.getElementById(
+        'actionsList'
+      );
+
+    const actionsBest =
+      document.getElementById(
+        'actionsBest'
+      );
+
+    const actionsBestCount =
+      document.getElementById(
+        'actionsBestCount'
+      );
+
+    const actionsDescription =
+      document.getElementById(
+        'actionsDescription'
       );
 
     /* =========================
@@ -2320,6 +2791,14 @@ content="width=device-width, initial-scale=1.0"
       );
 
       /* =========================
+         ATUALIZA AÇÃO MAIS REALIZADA
+      ========================= */
+
+      atualizarAcaoMaisRealizada(
+        contagemAtual
+      );
+
+      /* =========================
          ATUALIZA GRÁFICO
       ========================= */
 
@@ -2728,6 +3207,205 @@ content="width=device-width, initial-scale=1.0"
                         ? 'acesso'
                         : 'acessos'
                     }
+                  </span>
+
+                </div>
+              `;
+
+            }
+          )
+          .join('');
+
+    }
+
+    /* =========================
+       AÇÃO MAIS REALIZADA
+    ========================= */
+
+    function atualizarAcaoMaisRealizada(
+      contagem
+    ){
+
+      const acoes = [
+
+        {
+          tipo:'whatsapp',
+          nome:'WhatsApp',
+          icone:'💬'
+        },
+
+        {
+          tipo:'instagram',
+          nome:'Instagram',
+          icone:'📸'
+        },
+
+        {
+          tipo:'google',
+          nome:'Google',
+          icone:'⭐'
+        },
+
+        {
+          tipo:'maps',
+          nome:'Maps',
+          icone:'📍'
+        },
+
+        {
+          tipo:'site',
+          nome:'Site',
+          icone:'🌐'
+        }
+
+      ];
+
+      const ranking =
+        acoes
+          .map(
+            acao => ({
+              ...acao,
+              quantidade:
+                Number(
+                  contagem[acao.tipo] || 0
+                )
+            })
+          )
+          .sort(
+            (a,b) =>
+              b.quantidade -
+              a.quantidade
+          );
+
+      const totalInteracoes =
+        ranking.reduce(
+          (
+            total,
+            acao
+          ) =>
+            total +
+            acao.quantidade,
+          0
+        );
+
+      /* =========================
+         SEM INTERAÇÕES
+      ========================= */
+
+      if(
+        totalInteracoes === 0
+      ){
+
+        actionsBest.textContent =
+          '—';
+
+        actionsBestCount.textContent =
+          'Nenhuma interação';
+
+        actionsDescription.textContent =
+          `Ainda não houve interações nos últimos ${diasSelecionados} dias.`;
+
+        actionsList.innerHTML = `
+          <div class="actions-empty">
+            Assim que seus clientes começarem a interagir com sua página, o ranking dos canais aparecerá aqui.
+          </div>
+        `;
+
+        return;
+
+      }
+
+      const primeiraAcao =
+        ranking[0];
+
+      const percentual =
+        (
+          primeiraAcao.quantidade /
+          totalInteracoes
+        ) * 100;
+
+      const percentualFormatado =
+        percentual
+          .toFixed(1)
+          .replace(
+            '.',
+            ','
+          );
+
+      actionsBest.textContent =
+        `${primeiraAcao.icone} ${primeiraAcao.nome}`;
+
+      actionsBestCount.textContent =
+        `${primeiraAcao.quantidade} ${
+          primeiraAcao.quantidade === 1
+            ? 'vez'
+            : 'vezes'
+        } • ${percentualFormatado}% das interações`;
+
+      actionsDescription.textContent =
+        `O ${primeiraAcao.nome} é o canal mais utilizado pelos seus clientes nos últimos ${diasSelecionados} dias.`;
+
+      const maiorQuantidade =
+        ranking[0].quantidade || 1;
+
+      actionsList.innerHTML =
+        ranking
+          .map(
+            acao => {
+
+              const largura =
+                Math.max(
+                  4,
+                  (
+                    acao.quantidade /
+                    maiorQuantidade
+                  ) * 100
+                );
+
+              const percentualAcao =
+                (
+                  acao.quantidade /
+                  totalInteracoes
+                ) * 100;
+
+              const percentualAcaoFormatado =
+                percentualAcao
+                  .toFixed(1)
+                  .replace(
+                    '.',
+                    ','
+                  );
+
+              return `
+                <div class="action-row">
+
+                  <span class="action-name">
+
+                    <span class="action-dot"></span>
+
+                    ${acao.icone}
+                    ${acao.nome}
+
+                  </span>
+
+                  <div class="action-bar">
+
+                    <div
+                      class="action-bar-fill"
+                      style="width:${largura}%"
+                    ></div>
+
+                  </div>
+
+                  <span class="action-count">
+                    ${acao.quantidade}
+                    ${
+                      acao.quantidade === 1
+                        ? 'vez'
+                        : 'vezes'
+                    }
+                    ·
+                    ${percentualAcaoFormatado}%
                   </span>
 
                 </div>
