@@ -413,6 +413,189 @@
 
 
     /* =========================
+       INSIGHTS
+    ========================= */
+
+    .insights-section{
+
+      margin-top:24px;
+
+    }
+
+
+    .insights-card{
+
+      position:relative;
+
+      overflow:hidden;
+
+      display:grid;
+
+      grid-template-columns:1.4fr .8fr;
+
+      gap:20px;
+
+      padding:24px;
+
+      border:1px solid rgba(123,97,255,.24);
+
+      border-radius:20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(123,97,255,.13),
+          rgba(0,229,255,.05)
+        ),
+        var(--panel);
+
+      backdrop-filter:blur(20px);
+
+    }
+
+
+    .insights-card::before{
+
+      content:"";
+
+      position:absolute;
+
+      width:180px;
+
+      height:180px;
+
+      right:-70px;
+
+      top:-90px;
+
+      border-radius:50%;
+
+      background:
+        rgba(123,97,255,.14);
+
+      filter:blur(35px);
+
+    }
+
+
+    .insights-content{
+
+      position:relative;
+
+      z-index:1;
+
+    }
+
+
+    .insights-label{
+
+      margin:0 0 8px;
+
+      color:var(--cyan);
+
+      font-size:12px;
+
+      font-weight:700;
+
+      letter-spacing:.10em;
+
+      text-transform:uppercase;
+
+    }
+
+
+    .insights-title{
+
+      margin:0 0 9px;
+
+      font-size:21px;
+
+      line-height:1.2;
+
+    }
+
+
+    .insights-text{
+
+      margin:0;
+
+      color:var(--muted);
+
+      font-size:14px;
+
+      line-height:1.55;
+
+      max-width:570px;
+
+    }
+
+
+    .insights-highlight{
+
+      position:relative;
+
+      z-index:1;
+
+      display:flex;
+
+      flex-direction:column;
+
+      justify-content:center;
+
+      align-items:flex-end;
+
+      text-align:right;
+
+    }
+
+
+    .interaction-label{
+
+      color:var(--muted);
+
+      font-size:12px;
+
+      margin-bottom:6px;
+
+    }
+
+
+    .interaction-value{
+
+      font-size:38px;
+
+      font-weight:700;
+
+      line-height:1;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff,
+          #9ff6ff
+        );
+
+      -webkit-background-clip:text;
+
+      background-clip:text;
+
+      color:transparent;
+
+    }
+
+
+    .interaction-sub{
+
+      margin-top:7px;
+
+      color:var(--muted);
+
+      font-size:12px;
+
+    }
+
+
+    /* =========================
        GRÁFICO
     ========================= */
 
@@ -616,6 +799,33 @@
       }
 
 
+      .insights-card{
+
+        grid-template-columns:1fr;
+
+        gap:22px;
+
+        padding:20px;
+
+      }
+
+
+      .insights-highlight{
+
+        align-items:flex-start;
+
+        text-align:left;
+
+      }
+
+
+      .interaction-value{
+
+        font-size:34px;
+
+      }
+
+
       h1{
 
         font-size:27px;
@@ -738,6 +948,36 @@
       .metric-value{
 
         font-size:24px;
+
+      }
+
+
+      .insights-card{
+
+        padding:17px;
+
+        border-radius:17px;
+
+      }
+
+
+      .insights-title{
+
+        font-size:19px;
+
+      }
+
+
+      .insights-text{
+
+        font-size:13px;
+
+      }
+
+
+      .interaction-value{
+
+        font-size:32px;
 
       }
 
@@ -1026,6 +1266,71 @@
 
 
     <!-- =========================
+         INSIGHTS
+    ========================= -->
+
+    <section class="insights-section">
+
+      <div class="insights-card">
+
+
+        <div class="insights-content">
+
+          <p class="insights-label">
+            Insight
+          </p>
+
+
+          <h2
+            class="insights-title"
+            id="insightTitulo"
+          >
+            Analisando seus resultados...
+          </h2>
+
+
+          <p
+            class="insights-text"
+            id="insightTexto"
+          >
+            Estamos analisando as interações dos seus clientes com sua página Toque+.
+
+          </p>
+
+        </div>
+
+
+        <div class="insights-highlight">
+
+          <span class="interaction-label">
+            Taxa de interação
+          </span>
+
+
+          <strong
+            class="interaction-value"
+            id="taxaInteracao"
+          >
+            —
+          </strong>
+
+
+          <span
+            class="interaction-sub"
+            id="totalInteracoes"
+          >
+            —
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
          GRÁFICO
     ========================= -->
 
@@ -1195,6 +1500,34 @@
         )
 
     };
+
+
+    /* =========================
+       INSIGHTS
+    ========================= */
+
+    const insightTitulo =
+      document.getElementById(
+        'insightTitulo'
+      );
+
+
+    const insightTexto =
+      document.getElementById(
+        'insightTexto'
+      );
+
+
+    const taxaInteracao =
+      document.getElementById(
+        'taxaInteracao'
+      );
+
+
+    const totalInteracoes =
+      document.getElementById(
+        'totalInteracoes'
+      );
 
 
     /* =========================
@@ -1472,6 +1805,15 @@
       }
 
 
+      /*
+       * Atualiza insights
+       */
+
+      atualizarInsights(
+        contagem
+      );
+
+
       mensagem.textContent =
         'Dados atualizados.';
 
@@ -1481,6 +1823,162 @@
        */
 
       await carregarGrafico();
+
+    }
+
+
+    /* =========================
+       CALCULAR INSIGHTS
+    ========================= */
+
+    function atualizarInsights(
+      contagem
+    ){
+
+      const visualizacoes =
+        contagem.visualizacao;
+
+
+      const interacoes =
+        contagem.whatsapp +
+        contagem.instagram +
+        contagem.google +
+        contagem.maps +
+        contagem.site;
+
+
+      let taxa = 0;
+
+
+      if(visualizacoes > 0){
+
+        taxa =
+          (
+            interacoes /
+            visualizacoes
+          ) * 100;
+
+      }
+
+
+      /*
+       * Evita porcentagem acima
+       * de 100% visualmente.
+       *
+       * Uma pessoa pode realizar
+       * mais de uma ação, então
+       * a taxa real pode ultrapassar
+       * 100%.
+       */
+
+      const taxaFormatada =
+        taxa
+          .toFixed(1)
+          .replace('.',',');
+
+
+      taxaInteracao.textContent =
+        `${taxaFormatada}%`;
+
+
+      totalInteracoes.textContent =
+        `${interacoes} ${
+          interacoes === 1
+            ? 'interação'
+            : 'interações'
+        } realizadas`;
+
+
+      /*
+       * Nenhuma visualização ainda
+       */
+
+      if(
+        visualizacoes === 0
+      ){
+
+        insightTitulo.textContent =
+          'Sua página ainda está começando';
+
+
+        insightTexto.textContent =
+          'Assim que seus clientes começarem a acessar sua página Toque+, você verá aqui como eles estão interagindo com seu negócio.';
+
+        return;
+
+      }
+
+
+      /*
+       * Muitas interações
+       */
+
+      if(
+        taxa >= 30
+      ){
+
+        insightTitulo.textContent =
+          'Seus clientes estão interagindo bastante';
+
+
+        insightTexto.textContent =
+          `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Isso mostra um alto nível de interesse no seu negócio.`;
+
+        return;
+
+      }
+
+
+      /*
+       * Boa quantidade de interações
+       */
+
+      if(
+        taxa >= 15
+      ){
+
+        insightTitulo.textContent =
+          'Sua página está gerando boas interações';
+
+
+        insightTexto.textContent =
+          `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Seus clientes estão encontrando caminhos para entrar em contato ou conhecer melhor seu negócio.`;
+
+        return;
+
+      }
+
+
+      /*
+       * Algumas interações
+       */
+
+      if(
+        taxa > 0
+      ){
+
+        insightTitulo.textContent =
+          'Seus clientes já estão interagindo';
+
+
+        insightTexto.textContent =
+          `${visualizacoes} pessoas acessaram sua página e ${interacoes} realizaram alguma ação. Continue divulgando seu Toque+ para aumentar o número de interações.`;
+
+        return;
+
+      }
+
+
+      /*
+       * Visualizações sem ações
+       */
+
+      insightTitulo.textContent =
+        'Sua página está recebendo acessos';
+
+
+      insightTexto.textContent =
+        `${visualizacoes} pessoas acessaram sua página, mas ainda não realizaram uma ação. Continue divulgando seu Toque+ para aumentar as oportunidades de interação.`;
 
     }
 
