@@ -15,6 +15,7 @@
 
   }
 
+
   /*
     A página fica montada por trás da intro,
     mas permanece preparada para entrar somente
@@ -71,10 +72,20 @@
     }
 
 
+    /*
+      ORDEM DOS BOTÕES
+
+      1. Google / Avaliação
+      2. WhatsApp
+      3. Instagram
+      4. Maps
+      5. Site
+    */
+
     const links = [
+      ['google','Avalie nossa empresa','Sua avaliação ajuda muito!',unit.google],
       ['whatsapp','WhatsApp','Fale conosco',unit.whatsapp],
       ['instagram','Instagram','Siga nosso perfil',unit.instagram],
-      ['google','Google','Avalie nossa empresa',unit.google],
       ['maps','Como chegar','Abra no Maps',unit.maps],
       ['site','Nosso site','Conheça mais',unit.site]
     ].filter(x => x[3]);
@@ -149,6 +160,23 @@
                   ${sub}
                 </span>
 
+
+                ${
+                  type === 'google'
+                  ?
+                  `
+                    <span class="rating-stars" aria-hidden="true">
+                      <span>★</span>
+                      <span>★</span>
+                      <span>★</span>
+                      <span>★</span>
+                      <span>★</span>
+                    </span>
+                  `
+                  :
+                  ''
+                }
+
               </span>
 
 
@@ -214,6 +242,22 @@
 
           const type = el.dataset.track;
 
+
+          /*
+            Animação especial para avaliação
+          */
+
+          if(type === 'google'){
+
+            el.classList.remove('review-burst');
+
+            void el.offsetWidth;
+
+            el.classList.add('review-burst');
+
+          }
+
+
           try{
 
             await trackAction(
@@ -230,6 +274,10 @@
 
           }
 
+
+          /*
+            Efeito padrão dos outros botões
+          */
 
           el.classList.remove('burst');
 
