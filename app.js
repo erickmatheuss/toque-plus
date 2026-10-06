@@ -70,7 +70,7 @@
     /*
       ORDEM DOS BOTÕES
 
-      1. Avaliação Google
+      1. Google / Avaliação
       2. WhatsApp
       3. Instagram
       4. Maps
@@ -107,11 +107,9 @@
 
         </div>
 
-
         <h1 class="name">
           ${esc(unit.name)}
         </h1>
-
 
         ${
           unit.description
@@ -141,7 +139,19 @@
             >
 
               <span class="icon">
-                ${icon(type)}
+
+                ${
+                  type === 'google'
+                  ?
+                  `
+                    <span class="google-logo">
+                      <span class="google-g">G</span>
+                    </span>
+                  `
+                  :
+                  icon(type)
+                }
+
               </span>
 
 
@@ -151,11 +161,12 @@
                   ${title}
                 </span>
 
+
                 ${
                   type === 'google'
                   ?
                   `
-                    <span class="review-meta">
+                    <span class="review-line">
 
                       <span class="subtitle">
                         ${sub}
@@ -163,7 +174,7 @@
 
                       <span
                         class="rating-stars"
-                        aria-label="5 estrelas"
+                        aria-hidden="true"
                       >
                         <span>★</span>
                         <span>★</span>
@@ -245,11 +256,6 @@
         el.addEventListener('click', async () => {
 
           const type = el.dataset.track;
-
-          /*
-            Mantém o efeito padrão de clique
-            dos botões, sem impedir a navegação.
-          */
 
           el.classList.remove('burst');
 
