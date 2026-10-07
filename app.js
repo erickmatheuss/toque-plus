@@ -118,7 +118,6 @@
             unit.logoData
             ?
             `<img
-              class="client-logo"
               src="${unit.logoData}"
               alt="Logo de ${esc(unit.name)}"
             >`
