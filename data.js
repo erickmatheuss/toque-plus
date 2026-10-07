@@ -57,6 +57,19 @@ async function setUnit(unit){
 }
 async function releaseUnit(id){const u=await getUnit(id);if(!u)return null;const {data:row,error:e1}=await sb.from('unidades').select('id,cliente_id').eq('codigo',String(id).toUpperCase()).single();if(e1)throw e1;if(row.cliente_id){const {error}=await sb.from('clientes').delete().eq('id',row.cliente_id);if(error)throw error}const {error}=await sb.from('unidades').update({cliente_id:null,status:'LIVRE',apelido:null,atualizado_em:new Date().toISOString()}).eq('codigo',String(id).toUpperCase());if(error)throw error;return getUnit(id)}
 async function getUnitFromLocation(){const path=location.pathname.replace(/\\/g,'/');const m=path.match(/\/q\/([^/]+)/i);if(m){const key=decodeURIComponent(m[1]).toLowerCase();const units=await getUnits();return Object.values(units).find(u=>u.slug===key||u.id.toLowerCase()===key)||null}const params=new URLSearchParams(location.search);return getUnit((params.get('unit')||'A001').toUpperCase())}
-async function trackAction(id,type){const {data:row,error:e1}=await sb.from('unidades').select('id').eq('codigo',String(id).toUpperCase()).single();if(e1)throw e1;const {error}=await sb.from('acessos').insert({unidade_id:row.id,tipo:type});if(error)throw error}
+async function trackAction(id,type){
+  const codigo=String(id||'').toUpperCase().trim();
+
+  if(!codigo || !type) return;
+
+  const {error}=await sb.rpc('registrar_acesso',{
+    p_codigo:codigo,
+    p_tipo:type
+  });
+
+  if(error){
+    console.error('Erro ao registrar acesso:',error);
+  }
+}
 async function getStats(id){const {data:row,error:e1}=await sb.from('unidades').select('id').eq('codigo',String(id).toUpperCase()).single();if(e1)throw e1;const types=['visualizacao','whatsapp','instagram','google','maps','site'];const out={views:0,whatsapp:0,instagram:0,google:0,maps:0,site:0};for(const type of types){const {count,error}=await sb.from('acessos').select('id',{count:'exact',head:true}).eq('unidade_id',row.id).eq('tipo',type);if(error)throw error;out[type==='visualizacao'?'views':type]=count||0}return out}
 function icon(type){const common='fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';if(type==='whatsapp')return `<svg viewBox="0 0 24 24" ${common}><path d="M20.5 11.5a8.5 8.5 0 0 1-12.7 7.4L3 20l1.2-4.6A8.5 8.5 0 1 1 20.5 11.5Z"/><path d="M8.2 7.7c.3-.5.6-.5 1-.4l1 .8c.3.2.4.5.2.8l-.5.7c.7 1.3 1.7 2.2 3 2.9l.7-.5c.3-.2.6-.1.8.1l.8 1c.2.3.1.7-.2.9-.5.4-1.2.7-1.8.5-3.4-.8-6-3.4-6.8-6.8-.1-.6.1-1.3.5-1.8Z"/></svg>`;if(type==='instagram')return `<svg viewBox="0 0 24 24" ${common}><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.7" r=".8" fill="currentColor" stroke="none"/></svg>`;if(type==='google')return `<svg viewBox="0 0 24 24" ${common}><path d="M20.5 12.2c0 4.9-3.4 8.3-8.4 8.3a8.5 8.5 0 1 1 5.9-14.7l-2.2 2.1"/><path d="M12 12h8"/></svg>`;if(type==='maps')return `<svg viewBox="0 0 24 24" ${common}><path d="M20 10.2c0 5.1-8 11-8 11s-8-5.9-8-11a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>`;return `<svg viewBox="0 0 24 24" ${common}><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.4 3.6 5.4 3.6 9S14.4 18.6 12 21c-2.4-2.4-3.6-5.4-3.6-9S9.6 5.4 12 3Z"/> </svg>`}
