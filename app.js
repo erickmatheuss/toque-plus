@@ -118,8 +118,10 @@
             unit.logoData
             ?
             `<img
+              class="client-logo"
               src="${unit.logoData}"
               alt="Logo de ${esc(unit.name)}"
+              style="opacity:0"
             >`
             :
             `<span class="initials">
@@ -228,6 +230,38 @@
       </footer>
 
     `;
+
+
+    /*
+      Aguarda o carregamento da logo do cliente
+      antes de torná-la visível.
+    */
+
+    const clientLogo = document.querySelector('.client-logo');
+
+    if(clientLogo){
+
+      if(clientLogo.complete && clientLogo.naturalWidth > 0){
+
+        clientLogo.style.opacity = '1';
+
+      }else{
+
+        clientLogo.addEventListener('load', () => {
+
+          clientLogo.style.opacity = '1';
+
+        }, {once:true});
+
+        clientLogo.addEventListener('error', () => {
+
+          clientLogo.style.opacity = '1';
+
+        }, {once:true});
+
+      }
+
+    }
 
 
     /*
