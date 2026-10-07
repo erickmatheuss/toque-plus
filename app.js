@@ -233,8 +233,9 @@
 
 
     /*
-      Aguarda o carregamento da logo do cliente
-      antes de torná-la visível.
+      Mostra a logo somente depois que o PNG
+      estiver completamente carregado.
+      Isso evita o flash da borda no Safari.
     */
 
     const clientLogo = document.querySelector('.client-logo');
@@ -247,13 +248,7 @@
 
       }else{
 
-        clientLogo.addEventListener('load', () => {
-
-          clientLogo.style.opacity = '1';
-
-        }, {once:true});
-
-        clientLogo.addEventListener('error', () => {
+        clientLogo.addEventListener('load', function(){
 
           clientLogo.style.opacity = '1';
 
