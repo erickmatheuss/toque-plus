@@ -121,7 +121,6 @@
               class="client-logo"
               src="${unit.logoData}"
               alt="Logo de ${esc(unit.name)}"
-              style="opacity:0"
             >`
             :
             `<span class="initials">
@@ -230,33 +229,6 @@
       </footer>
 
     `;
-
-
-    /*
-      Mostra a logo somente depois que o PNG
-      estiver completamente carregado.
-      Isso evita o flash da borda no Safari.
-    */
-
-    const clientLogo = document.querySelector('.client-logo');
-
-    if(clientLogo){
-
-      if(clientLogo.complete && clientLogo.naturalWidth > 0){
-
-        clientLogo.style.opacity = '1';
-
-      }else{
-
-        clientLogo.addEventListener('load', function(){
-
-          clientLogo.style.opacity = '1';
-
-        }, {once:true});
-
-      }
-
-    }
 
 
     /*
