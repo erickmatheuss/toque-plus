@@ -3,7 +3,12 @@
   const app = document.getElementById('app');
   const intro = document.getElementById('intro');
 
+  let introFinished = !intro;
+  let pageReady = false;
+
   function startPageAnimation(){
+
+    if(!introFinished || !pageReady) return;
 
     app.classList.add('page-ready');
 
@@ -15,10 +20,11 @@
 
   }
 
+
   /*
-    A página fica montada por trás da intro,
-    mas permanece preparada para entrar somente
-    quando a intro terminar.
+    A animação da página só começa quando:
+    1. a intro terminou
+    2. os dados do cliente foram carregados
   */
 
   if(intro){
@@ -26,14 +32,14 @@
     intro.addEventListener('animationend', function(event){
 
       if(event.animationName === 'introOut'){
+
+        introFinished = true;
+
         startPageAnimation();
+
       }
 
     });
-
-  }else{
-
-    startPageAnimation();
 
   }
 
@@ -43,6 +49,11 @@
     const unit = await getUnitFromLocation();
 
     const bg = document.getElementById('background');
+
+
+    /*
+      Configura fundo
+    */
 
     if(unit && unit.backgroundData){
 
@@ -58,6 +69,10 @@
     }
 
 
+    /*
+      Unidade inexistente ou não configurada
+    */
+
     if(!unit || unit.status !== 'configured'){
 
       app.innerHTML = `
@@ -67,9 +82,18 @@
         </section>
       `;
 
+      pageReady = true;
+
+      startPageAnimation();
+
       return;
+
     }
 
+
+    /*
+      Links disponíveis
+    */
 
     const links = [
       ['whatsapp','WhatsApp','Fale conosco',unit.whatsapp],
@@ -79,6 +103,10 @@
       ['site','Nosso site','Conheça mais',unit.site]
     ].filter(x => x[3]);
 
+
+    /*
+      Monta página
+    */
 
     app.innerHTML = `
 
@@ -139,36 +167,38 @@
               </span>
 
 
-            <span class="copy">
+              <span class="copy">
 
-              <span class="title">
-                ${title}
-            </span>
+                <span class="title">
+                  ${title}
+                </span>
 
-            ${
-  type === 'google'
-  ?
-  `
-    <span class="subtitle google-subtitle">
-      ${sub}
-      <span class="google-stars">
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-      </span>
-    </span>
-  `
-  :
-  `
-    <span class="subtitle">
-      ${sub}
-    </span>
-  `
-}
 
-</span>
+                ${
+                  type === 'google'
+                  ?
+                  `
+                    <span class="subtitle google-subtitle">
+                      ${sub}
+
+                      <span class="google-stars">
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                      </span>
+                    </span>
+                  `
+                  :
+                  `
+                    <span class="subtitle">
+                      ${sub}
+                    </span>
+                  `
+                }
+
+              </span>
 
 
               <span class="arrow">
@@ -201,6 +231,16 @@
 
 
     /*
+      Os elementos da página já existem.
+      Agora podemos liberar a animação.
+    */
+
+    pageReady = true;
+
+    startPageAnimation();
+
+
+    /*
       Registra visualização
     */
 
@@ -222,23 +262,30 @@
 
 
     /*
-      Rastreamento dos cliques
+      Animação das estrelas do Google
     */
+
     const googleLink = document.querySelector('.link-google');
 
-if(googleLink){
+    if(googleLink){
 
-  setTimeout(() => {
+      setTimeout(() => {
 
-    googleLink
-      .querySelectorAll('.google-stars span')
-      .forEach(star => {
-        star.style.animationPlayState = 'running';
-      });
+        googleLink
+          .querySelectorAll('.google-stars span')
+          .forEach(star => {
+            star.style.animationPlayState = 'running';
+          });
 
-  }, 550);
+      }, 550);
 
-}
+    }
+
+
+    /*
+      Rastreamento dos cliques
+    */
+
     document
       .querySelectorAll('.link')
       .forEach(el => {
@@ -296,6 +343,10 @@ if(googleLink){
       </section>
 
     `;
+
+    pageReady = true;
+
+    startPageAnimation();
 
   }
 
