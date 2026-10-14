@@ -1,3 +1,4 @@
+
 (async function(){
 
   const app = document.getElementById('app');
@@ -115,15 +116,16 @@
         <div class="logo-wrap">
 
           ${
-  unit.logoData
-  ?
-  `<img
-    class="client-logo"
-    src="${unit.logoData}"
-    alt="Logo de ${esc(unit.name)}"
-  >`
-  :
-  `<span class="initials">
+            unit.logoData
+            ?
+            `<img
+              class="client-logo"
+              src="${unit.logoData}"
+              alt="Logo de ${esc(unit.name)}"
+              style="opacity:0"
+            >`
+            :
+            `<span class="initials">
               ${esc((unit.name || '').slice(0,2).toUpperCase())}
             </span>`
           }
@@ -229,6 +231,36 @@
       </footer>
 
     `;
+
+
+    /*
+      Exibe a logo depois que o PNG estiver carregado.
+      Não altera a sequência nem a duração das animações.
+    */
+
+    const clientLogo = document.querySelector('.client-logo');
+
+    if(clientLogo){
+
+      const showLogo = () => {
+        clientLogo.style.opacity = '1';
+      };
+
+      if(clientLogo.complete && clientLogo.naturalWidth > 0){
+
+        showLogo();
+
+      }else{
+
+        clientLogo.addEventListener('load', showLogo, {once:true});
+
+        clientLogo.addEventListener('error', () => {
+          clientLogo.style.opacity = '1';
+        }, {once:true});
+
+      }
+
+    }
 
 
     /*
