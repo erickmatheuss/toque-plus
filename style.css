@@ -194,7 +194,9 @@ body{
   object-fit:cover;
   display:block;
 }
-
+.logo-wrap img:not([src]){
+  visibility:hidden;
+}
 .initials{
   font-weight:700;
   font-size:26px;
