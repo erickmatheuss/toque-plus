@@ -520,11 +520,20 @@ body{
     drop-shadow(0 0 14px rgba(123,97,255,.28));
 }
 
+
 .intro-inner .brand-logo-image{
+  display:block;
+  object-fit:contain;
+  border:0;
+  outline:0;
+  box-shadow:none;
+  background:transparent;
+
   filter:
     drop-shadow(0 0 16px rgba(0,229,255,.45))
     drop-shadow(0 0 30px rgba(123,97,255,.35));
 }
+
 
 
 /* =========================================================
