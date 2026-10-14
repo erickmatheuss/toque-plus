@@ -115,14 +115,15 @@
         <div class="logo-wrap">
 
           ${
-            unit.logoData
-            ?
-            `<img
-              src="${unit.logoData}"
-              alt="Logo de ${esc(unit.name)}"
-            >`
-            :
-            `<span class="initials">
+  unit.logoData
+  ?
+  `<img
+    class="client-logo"
+    src="${unit.logoData}"
+    alt="Logo de ${esc(unit.name)}"
+  >`
+  :
+  `<span class="initials">
               ${esc((unit.name || '').slice(0,2).toUpperCase())}
             </span>`
           }
