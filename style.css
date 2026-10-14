@@ -191,11 +191,8 @@ body{
 .logo-wrap img{
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:contain;
   display:block;
-}
-.logo-wrap img:not([src]){
-  visibility:hidden;
 }
 .initials{
   font-weight:700;
